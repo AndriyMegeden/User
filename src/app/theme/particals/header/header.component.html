@@ -1,0 +1,24 @@
+<div class="ion-page" id="main-content">
+  <ion-header>
+    <ion-toolbar class="p-l-10">
+      <ion-buttons  slot="start" >
+        <ion-menu-button autoHide="false" (click)="changeToggle()"></ion-menu-button>
+      </ion-buttons>
+      <div class="row-box d-flex flex-d-row justify-space-between p-lr-15">
+        <div class="left d-flex flex-d-row">
+          <div class="logo d-flex justify-center align-center">
+            <a href="#"> <img [src]="logo" /></a>
+           </div> 
+         
+        </div>
+        <div class="right d-flex flex-d-row">
+          <!-- <ion-title class="p-0">Admin</ion-title> -->
+          <div class="user-container d-flex align-center p-lr-15">
+            <span class="p-lr-10">office.mtdev&#64;gmail.com</span>
+            <ion-icon style="width: 50px; height: 50px;" name="person-circle-outline"></ion-icon>
+          </div>
+        </div>
+      </div>
+    </ion-toolbar>
+  </ion-header>
+</div>

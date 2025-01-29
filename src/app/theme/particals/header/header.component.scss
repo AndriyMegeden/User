@@ -1,0 +1,28 @@
+.ion-page {
+  ion-header {
+    height: 80px;
+    ion-toolbar {
+      ion-buttons {
+        color: var(--black);
+      }
+      .row-box {
+        // ion-title {
+        //   color: var(--black);
+        //   flex: 0 0 0%;
+        // }
+        .right {
+          .user-container {
+            ion-icon {
+              color: var(--blue);
+            }
+            span {
+              color: var(--black);
+            }
+          }
+        }
+      }
+      --ion-background-color: var(--white);
+      --min-height: 80px;
+    }
+  }
+}

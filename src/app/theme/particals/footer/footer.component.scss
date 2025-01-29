@@ -1,0 +1,18 @@
+.footer-container {
+  .footer {
+    background-color: var(--white);
+    height: 20px;
+    .social-networks{
+      .logo{
+        color: gray;
+      }
+      .logo:hover{
+        color: rgb(61, 50, 50);
+      }
+      ion-icon{
+        width: 40px;
+        height: 40px;
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+ion-item {
+  display: flex;
+  align-items: center;
+  --background: none;
+  --padding-start: 0px;
+  --inner-padding-end: 0px;
+  --border-style: none;
+  --highlight-height: 0px;
+  --border-color: var(--dark-gray);
+  --highlight-color-focused: var(--dark-gray);
+  border: 1.5px solid var(--dark-gray);
+  --background: none;
+  color: var(--dark-gray);
+  border-radius: 12px;
+  height: 56px;
+  width: 100%;
+  ion-input {
+    font-family: Onest;
+    width: 100%;
+    flex: 1;
+  }
+}
+
+// removings arrows from input
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none; // Yeah, yeah everybody write about it
+}
+
+input[type="number"],
+input[type="number"]:hover,
+input[type="number"]:focus {
+  appearance: none;
+  -moz-appearance: textfield;
+}

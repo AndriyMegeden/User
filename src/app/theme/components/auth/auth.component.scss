@@ -1,0 +1,365 @@
+.container {
+  .logo-container{
+    background-color: var(--white);
+    width: 200px;
+    height: 50px;
+    border-radius: 10px;
+    img {
+      width: 170px;
+      height: 40px;
+    }
+  }
+  .title-container {
+    height: auto;
+    .title {
+      color: var( --dark-gray);
+      font-family: Onest;
+      font-size: 31px;
+      font-weight: 700;
+      line-height: 34px;
+      letter-spacing: 0px;
+      text-align: left;
+    }
+    .subtitle {
+      color: var( --dark-gray);
+      font-family: Onest;
+      font-size: 19px;
+      font-weight: 500;
+      line-height: 24px;
+      letter-spacing: 0px;
+      text-align: left;
+    }
+  }
+  .inputs-wrapper {
+    .inputs {
+      height: auto;
+      min-height: 100px;
+      .input-name {
+        color: var( --dark-gray);
+        height: 28px;
+        font-family: Onest;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 22px;
+        letter-spacing: 0px;
+        text-align: left;
+      }
+      .ion-input {
+        .warning {
+          font-family: Onest;
+          color: var( --dark-gray);
+          height: auto;
+          width: 90%;
+          margin-top: 10px;
+          margin-bottom: 20px;
+          text-align: center;
+        }
+      }
+    }
+    .recovery-inputs {
+      ion-item {
+        --padding-start: 0px;
+        --inner-padding-end: 0px;
+        --border-style: none;
+        width: 23.5%;
+        ion-input {
+          border-radius: 12px;
+          height: 66px;
+          width: 50px;
+          margin: 0 8px;
+          text-align: center;
+          -webkit-tach-appearance: none;
+          --appearance: none;
+        }
+      }
+      .input-name {
+        color: var( --dark-gray);
+        height: 38px;
+        font-family: Onest;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 22px;
+        letter-spacing: 0px;
+        text-align: left;
+      }
+    }
+  }
+  .licence-wrapper {
+    .licence {
+      height: auto;
+      .licence-icon {
+        width: 47px;
+        ion-checkbox {
+          --checkbox-background: none;
+          width: 42px;
+          height: 42px;
+          --size: 28px;
+          --border-width: 1px;
+          --border-radius: 100px;
+          --border-color: var( --dark-gray);
+          --checkbox-background-checked: var(--yellow);
+          --checkmark-color: var(--dark-gray);
+          --border-color-checked: var(--yellow);
+        }
+      }
+      .licence-text {
+        font-family: Onest;
+        span {
+          color: var( --dark-gray);
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 20px;
+          a {
+            color: var( --dark-gray);
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+  .networks {
+    .networks-icons {
+      .facebook {
+        margin-right: 0px;
+        margin-left: 30px;
+        &.margin {
+          margin-right: 30px;
+        }
+      }
+      .apple {
+        display: none;
+        ion-icon {
+          width: 74px;
+          height: 74px;
+        }
+        &.apple-auth {
+          display: block;
+          ion-icon {
+            width: 74px;
+            height: 74px;
+          }
+        }
+      }
+      ion-icon {
+        width: 74px;
+        height: 74px;
+      }
+    }
+    height: auto;
+    .networks-title {
+      color: var(--dark-gray);
+      font-family: Onest;
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 21px;
+    }
+    .networks-subtitle {
+      color: var(--dark-gray);
+      font-family: Onest;
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 21px;
+      span {
+        color: var(--dark-gray);
+        a {
+          color: var( --dark-gray);
+          text-decoration: none;
+        }
+      }
+    }
+  }
+  .forgot-password {
+    color: var( --dark-gray);
+    height: 27px;
+    font-family: Onest;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 17px;
+  }
+}
+@media (max-width: 576px) {
+  .content {
+    .upper-part {
+      ion-icon {
+        width: 26px;
+        height: 26px;
+      }
+    }
+    .title-container {
+      .title {
+        span {
+          font-size: 28px;
+        }
+      }
+      .subtitle {
+        span {
+          font-size: 17px;
+        }
+      }
+    }
+    .inputs-wrapper {
+      .inputs {
+        .input-name {
+          height: 26px;
+          font-size: 16px;
+        }
+      }
+      .recovery-inputs {
+        ion-item {
+          width: 22.5%;
+          ion-input {
+            height: 61px;
+            width: 69px;
+            margin: 0 8px;
+          }
+        }
+        .input-name {
+          height: 28px;
+
+          font-size: 16px;
+        }
+      }
+    }
+    .licence-wrapper {
+      .licence {
+        .licence-icon {
+          width: 42px;
+          ion-checkbox {
+            --size: 24px;
+            width: 37px;
+            height: 37px;
+          }
+        }
+        .licence-text {
+          span {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+    .networks {
+      .networks-icons {
+        .apple {
+          ion-icon {
+            width: 69px;
+            height: 69px;
+          }
+          &.apple-auth {
+            ion-icon {
+              width: 69px;
+              height: 69px;
+            }
+          }
+        }
+        ion-icon {
+          width: 69px;
+          height: 69px;
+        }
+      }
+      .networks-title {
+        font-size: 16px;
+      }
+      .networks-subtitle {
+        font-size: 16px;
+      }
+    }
+    .forgot-password {
+      height: 22px;
+
+      font-size: 16px;
+    }
+  }
+}
+
+@media (max-width: 425px) {
+  .content {
+    .upper-part {
+      ion-icon {
+        width: 24px;
+        height: 24px;
+      }
+    }
+    .title-container {
+      .title {
+        span {
+          font-size: 24px;
+        }
+      }
+      .subtitle {
+        span {
+          font-size: 15px;
+        }
+      }
+    }
+    .inputs-wrapper {
+      .inputs {
+        .input-name {
+          height: 22px;
+          font-size: 14px;
+        }
+      }
+      .recovery-inputs {
+        ion-item {
+          width: 21.5%;
+          ion-input {
+            height: 56px;
+            width: 64px;
+            margin: 0 8px;
+          }
+        }
+        .input-name {
+          height: 28px;
+          font-size: 14px;
+        }
+      }
+    }
+    .licence-wrapper {
+      .licence {
+        .licence-icon {
+          width: 37px;
+          ion-checkbox {
+            --size: 20px;
+            width: 32px;
+            height: 32px;
+          }
+        }
+        .licence-text {
+          span {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+
+    .networks {
+      .networks-icons {
+        .apple {
+          ion-icon {
+            width: 64px;
+            height: 64px;
+          }
+          &.apple-auth {
+            ion-icon {
+              width: 64px;
+              height: 64px;
+            }
+          }
+        }
+        ion-icon {
+          width: 64px;
+          height: 64px;
+        }
+      }
+      .networks-title {
+        font-size: 14px;
+      }
+      .networks-subtitle {
+        font-size: 14px;
+      }
+    }
+    .forgot-password {
+      height: 17px;
+      font-size: 14px;
+    }
+  }
+}

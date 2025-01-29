@@ -1,0 +1,377 @@
+<form [formGroup]="form">
+  <div class="container">
+    <div class="logo-container m-b-25 d-flex justify-start align-center" *ngIf="check('sections', 'logo')">
+      <img [src]="logo" />
+    </div>
+    <div class="w-100 title-container">
+      <div class="title">
+        <span> {{ currentMode.title | translate }} </span>
+      </div>
+      <div class="subtitle m-t-5">
+        <span>{{ currentMode.subtitle | translate }}</span>
+      </div>
+    </div>
+    <div class="inputs-wrapper w-100 m-t-30">
+      <div
+        class="recovery-inputs d-flex flex-d-col justify-space-between"
+        *ngIf="check('sections', 'code')"
+      >
+        <div class="input-name"><span translate>auth.code</span></div>
+        <div
+          class="ion-input d-flex justify-space-between align-center"
+          *ngIf="check('sections', 'code')"
+        >
+          <ion-item *ngIf="check('fields', 'code1')">
+            <ion-input
+              type="text"
+              inputmode="numeric"
+              maxlength="1"
+              formControlName="code1"
+            ></ion-input>
+          </ion-item>
+          <ion-item *ngIf="check('fields', 'code2')">
+            <ion-input
+              type="text"
+              inputmode="numeric"
+              maxlength="1"
+              formControlName="code2"
+            ></ion-input>
+          </ion-item>
+          <ion-item *ngIf="check('fields', 'code3')">
+            <ion-input
+              type="text"
+              inputmode="numeric"
+              maxlength="1"
+              formControlName="code3"
+            ></ion-input>
+          </ion-item>
+          <ion-item *ngIf="check('fields', 'code4')">
+            <ion-input
+              type="text"
+              inputmode="numeric"
+              maxlength="1"
+              formControlName="code4"
+            ></ion-input>
+          </ion-item>
+        </div>
+      </div>
+      <div
+        class="inputs d-flex flex-d-col"
+        *ngIf="check('fields', 'firstName')"
+      >
+        <div class="input-name"><span translate>auth.name</span></div>
+        <div class="ion-input flex-d-col d-flex justify-center align-center">
+          <ion-item class="p-l-16 d-flex align-center" lines="none">
+            <ion-icon
+              class="p-r-16"
+              src="/assets/icons/general/user.svg"
+            ></ion-icon>
+            <ion-input
+              formControlName="firstName"
+              [placeholder]="currentMode.placeholder2 | translate"
+              type="text"
+            >
+            </ion-input>
+          </ion-item>
+          <div
+            class="warning d-flex align-end justify-start m-lr-15"
+            *ngIf="
+              form.get('firstName')?.invalid && form.get('firstName')?.touched
+            "
+            translate
+          >
+            other.errors.validation_firstName
+          </div>
+        </div>
+      </div>
+      <div class="inputs d-flex flex-d-col" *ngIf="check('fields', 'LastName')">
+        <div class="input-name"><span translate>auth.surname</span></div>
+        <div class="ion-input flex-d-col d-flex justify-center align-center">
+          <ion-item class="p-l-16 d-flex align-center" lines="none">
+            <ion-icon
+              class="p-r-16"
+              src="/assets/icons/general/surname.svg"
+            ></ion-icon>
+            <ion-input
+              formControlName="LastName"
+              [placeholder]="currentMode.placeholder3 | translate"
+              type="text"
+            >
+            </ion-input>
+          </ion-item>
+          <div
+            class="warning d-flex align-end justify-start m-lr-15"
+            *ngIf="
+              form.get('LastName')?.invalid && form.get('LastName')?.touched
+            "
+            translate
+          >
+            other.errors.validation_lastName
+          </div>
+        </div>
+      </div>
+      <div class="inputs d-flex flex-d-col" *ngIf="check('fields', 'Country')">
+        <div class="input-name"><span translate>auth.country</span></div>
+        <div class="ion-input flex-d-col d-flex justify-center align-center">
+          <ion-item class="p-l-16 d-flex align-center" lines="none">
+            <ion-icon
+              class="p-r-16"
+              src="/assets/icons/general/country.svg"
+            ></ion-icon>
+            <ion-input
+              formControlName="Country"
+              [placeholder]="currentMode.country | translate"
+              type="text"
+            >
+            </ion-input>
+          </ion-item>
+          <div
+            class="warning d-flex align-end justify-start m-lr-15"
+            *ngIf="
+              form.get('Country')?.invalid && form.get('Country')?.touched
+            "
+            translate
+          >
+            other.errors.validation_country
+          </div>
+        </div>
+      </div>
+      <div class="inputs d-flex flex-d-col" *ngIf="check('fields', 'City')">
+        <div class="input-name"><span translate>auth.city</span></div>
+        <div class="ion-input flex-d-col d-flex justify-center align-center">
+          <ion-item class="p-l-16 d-flex align-center" lines="none">
+            <ion-icon
+              class="p-r-16"
+              src="/assets/icons/general/city.svg"
+            ></ion-icon>
+            <ion-input
+              formControlName="City"
+              [placeholder]="currentMode.city | translate"
+              type="text"
+            >
+            </ion-input>
+          </ion-item>
+          <div
+            class="warning d-flex align-end justify-start m-lr-15"
+            *ngIf="
+              form.get('City')?.invalid && form.get('City')?.touched
+            "
+            translate
+          >
+            other.errors.validation_city
+          </div>
+        </div>
+      </div>
+      <div class="inputs d-flex flex-d-col" *ngIf="check('fields', 'Index')">
+        <div class="input-name"><span translate>auth.city_index</span></div>
+        <div class="ion-input flex-d-col d-flex justify-center align-center">
+          <ion-item class="p-l-16 d-flex align-center" lines="none">
+            <ion-icon
+              class="p-r-16"
+              src="/assets/icons/general/index.svg"
+            ></ion-icon>
+            <ion-input
+              formControlName="Index"
+              [placeholder]="currentMode.index | translate"
+              type="number"
+            >
+            </ion-input>
+          </ion-item>
+          <div
+            class="warning d-flex align-end justify-start m-lr-15"
+            *ngIf="
+              form.get('Index')?.invalid && form.get('Index')?.touched
+            "
+            translate
+          >
+            other.errors.validation_city_index
+          </div>
+        </div>
+      </div>
+      <div class="inputs d-flex flex-d-col" *ngIf="check('fields', 'email')">
+        <div class="input-name"><span translate>auth.email</span></div>
+        <div class="ion-input flex-d-col d-flex justify-center align-center">
+          <ion-item class="p-l-16 d-flex align-center" lines="none">
+            <ion-icon
+              class="p-r-16"
+              src="/assets/icons/general/email.svg"
+            ></ion-icon>
+            <ion-input
+              formControlName="email"
+              [placeholder]="currentMode.placeholder | translate"
+              type="email"
+            >
+            </ion-input>
+          </ion-item>
+          <div
+            class="warning d-flex align-end justify-start"
+            *ngIf="form.get('email')?.invalid && form.get('email')?.touched"
+            translate
+          >
+            other.errors.validation_email
+          </div>
+        </div>
+      </div>
+      <div class="inputs d-flex flex-d-col" *ngIf="check('fields', 'password')">
+        <div class="input-name">
+          <span>{{ currentMode.password | translate }}</span>
+        </div>
+        <div class="ion-input flex-d-col d-flex justify-center align-center">
+          <ion-item class="p-l-16 d-flex align-center" lines="none">
+            <ion-icon
+              class="p-r-16"
+              src="/assets/icons/general/lock.svg"
+            ></ion-icon>
+            <ion-input
+              formControlName="password"
+              [placeholder]="currentMode.password | translate"
+              [type]="passwordShow ? 'text' : 'password'"
+            >
+            </ion-input>
+            <ion-icon
+              class="p-r-16"
+              (click)="passwordShow = !passwordShow"
+              [src]="
+                passwordShow
+                  ? '/assets/icons/general/eye.svg'
+                  : '/assets/icons/general/eye-closed.svg'
+              "
+            ></ion-icon>
+          </ion-item>
+          <div
+            class="warning d-flex align-end justify-start"
+            *ngIf="
+              form.get('password')?.invalid && form.get('password')?.touched
+            "
+            translate
+          >
+            other.errors.validation_password
+          </div>
+        </div>
+      </div>
+      <div
+        class="inputs d-flex flex-d-col"
+        *ngIf="check('fields', 'repeatPassword')"
+      >
+        <div class="input-name">
+          <span>{{ currentMode.repeat | translate }}</span>
+        </div>
+        <div class="ion-input flex-d-col d-flex justify-center align-center">
+          <ion-item class="p-l-16 d-flex align-center" lines="none">
+            <ion-icon
+              class="p-r-16"
+              src="/assets/icons/general/lock.svg"
+            ></ion-icon>
+            <ion-input
+              formControlName="repeatPassword"
+              [placeholder]="currentMode.password | translate"
+              [placeholder]="currentMode.repeat | translate"
+              [type]="repeatPasswordShow ? 'text' : 'password'"
+            >
+            </ion-input>
+
+            <ion-icon
+              class="p-r-16"
+              (click)="repeatPasswordShow = !repeatPasswordShow"
+              [src]="
+                repeatPasswordShow
+                  ? '/assets/icons/general/eye.svg'
+                  : '/assets/icons/general/eye-closed.svg'
+              "
+            ></ion-icon>
+          </ion-item>
+          <div
+            class="warning d-flex align-end justify-start"
+            *ngIf="
+              form.get('repeatPassword')?.invalid &&
+              form.get('repeatPassword')?.touched
+            "
+            translate
+          >
+            other.errors.validation_password
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="licence-wrapper d-flex justify-center m-b-12"
+      *ngIf="check('sections', 'sign_up')"
+    >
+      <div class="licence d-flex justify-start align-center">
+        <div
+          class="licence-icon m-r-15 d-flex justify-end"
+          *ngIf="check('fields', 'accept')"
+        >
+          <ion-checkbox formControlName="accept"></ion-checkbox>
+        </div>
+        <div class="licence-text">
+          <span class="t-span-center" translate> auth.clicking </span>
+          <span class="t-span-center" translate>
+            auth.accepted <a href="#" translate>auth.privacy </a> &
+            <a href="#" translate>auth.terms</a>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="forgot-password d-flex justify-end m-b-12"
+      (click)="navigate('forgot-password')"
+      *ngIf="check('sections', 'sign_in')"
+    >
+      <span translate>auth.forgot</span>
+    </div>
+    <div
+      class="sign-up-button d-flex justify-center m-b-20"
+      *ngIf="check('sections', 'button')"
+    >
+      <ion-button
+        class="general"
+        (click)="nextForm() ? changeForm() : getForm()"
+        [disabled]="form.invalid || getError()"
+        vibrate
+      >{{ currentMode.button | translate }}</ion-button>
+    </div>
+
+    <div class="networks w-100">
+      <div class="networks-title m-b-20" *ngIf="check('sections', 'agreement')">
+        <span class="t-span-center" translate>auth.or_sign_in_with</span>
+      </div>
+      <div
+        class="networks-icons d-flex justify-center m-b-30"
+        *ngIf="check('sections', 'social')"
+      >
+        <ion-icon
+          src="/assets/icons/socials/google-auth.svg"
+          name="google-auth"
+          (click)="signInWithGoogle()"
+        ></ion-icon>
+        <ion-icon
+          src="/assets/icons/socials/facebook-auth.svg"
+          name="facebook-auth"
+          class="facebook"
+          [ngClass]="{ margin: isIOS }"
+          (click)="signInWithFB()"
+        ></ion-icon>
+        <div class="apple" [ngClass]="{ 'apple-auth': isIOS }">
+          <ion-icon
+            src="/assets/icons/socials/apple-auth.svg"
+            name="apple-auth"
+            (click)="signInWithApple()"
+          ></ion-icon>
+        </div>
+      </div>
+      <div class="networks-subtitle" *ngIf="check('sections', 'licence')">
+        <span class="t-span-center" translate>
+          auth.already
+          <a (click)="navigate('')" translate>auth.sign_in_button</a>
+        </span>
+      </div>
+      <div class="networks-subtitle" *ngIf="check('sections', 'sign_in')">
+        <span class="t-span-center" translate>
+          auth.create
+          <a (click)="navigate('register')" translate>auth.sign_up_button</a>
+        </span>
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,9 @@
+ion-content{
+  --background: var(--silver);
+  .container{
+    padding: 0;
+    .content {
+      padding: 24px;
+    }
+  }
+}
