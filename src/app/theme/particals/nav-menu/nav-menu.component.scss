@@ -1,4 +1,12 @@
 .ion-menu {
+  padding: 10px;
+  ion-item{
+    border: none;
+    ion-button{
+      width: 100%;
+      height: 40px;
+    }
+  }
   width: 155px;
   position: relative;
   z-index: 100;

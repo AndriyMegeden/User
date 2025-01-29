@@ -10,13 +10,14 @@ import { MenuService } from "@services/general/menu.service";
   styleUrls: ["./header.component.scss"],
 })
 export class HeaderComponent implements OnInit {
+  public email: string = localStorage.getItem('email') || '';
   constructor(
     private menuService: MenuService,
     private authService: AuthService,
     private router: Router
   ) {}
 
-  async ngOnInit() {}
+ ngOnInit() {}
 
   logo = "assets/icons/general/logo.svg";
 

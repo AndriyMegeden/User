@@ -5,13 +5,22 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class MenuService {
-  private menuState = new BehaviorSubject<boolean>(false);
+  // використовує значення menuState з localStorage
+  private menuState = new BehaviorSubject<boolean>(this.getStoredMenuState());
 
   getMenuState() {
     return this.menuState.asObservable();
   }
 
   toggleMenu() {
-    this.menuState.next(!this.menuState.value);
+    // міняє значення menuState і зберігає його в localStorage
+    const newState = !this.menuState.value;
+    this.menuState.next(newState);
+    localStorage.setItem('menuState', JSON.stringify(newState));
+  }
+  // перевіряє чи є значення menuState в localStorage і витягує його 
+  private getStoredMenuState(): boolean {
+    const storedState = localStorage.getItem('menuState');
+    return storedState !== null ? JSON.parse(storedState) : false;
   }
 }
