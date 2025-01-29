@@ -11,20 +11,6 @@ const routes: Routes = [
     }
   },
   {
-    path: 'register',
-    loadChildren: () => import('./pages/auth/register/register.module').then( m => m.RegisterPageModule),
-    data: {
-      loader: true
-    }
-  },
-  {
-    path: 'forgot-password',
-    loadChildren: () => import('./pages/auth/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule),
-    data: {
-      loader: true
-    }
-  },
-  {
     path: 'users',
     loadChildren: () => import('./pages/secure/users/users.module').then(m => m.UsersPageModule),
     canActivate: [AuthGuard],

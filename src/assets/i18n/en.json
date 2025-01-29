@@ -2,7 +2,7 @@
   "auth": {
     "send": "We send code enter here ",
     "large": "Large Input",
-    "improve": "MTDev Software development",
+    "improve": "User",
     "make": "Reliable team with extensive development experience",
     "sign_in_button": "Sign In",
     "send_button": "Send",
@@ -24,7 +24,6 @@
     "or_sign_in_with": "Or sign in with",
     "already": "Already have an account?",
     "create": "Create new account?",
-    "forgot": "Forgot Password?",
     "clicking": "By clicking Sign Up, I agree that I haveread and",
     "accepted": " accepted",
     "privacy": "Privacy Policy",
