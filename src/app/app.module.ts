@@ -10,7 +10,7 @@ import { AppComponent } from './app.component';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
-import { AuthInterceptor } from '@core/auth-service/interceptors/auth.Interceptor';
+
 import { AuthGuard } from '@core/auth-service/guards/auth.guard';
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -34,7 +34,6 @@ export function HttpLoaderFactory(http: HttpClient) {
         })
     ],
     providers: [
-        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
         AuthGuard
     ],

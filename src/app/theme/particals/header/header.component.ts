@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Router } from "@angular/router";
+import { AuthService } from "@core/auth-service/services/auth.service";
 import { MenuController } from "@ionic/angular";
 import { MenuService } from "@services/general/menu.service";
 
@@ -8,19 +10,19 @@ import { MenuService } from "@services/general/menu.service";
   styleUrls: ["./header.component.scss"],
 })
 export class HeaderComponent implements OnInit {
-
-
-
-  constructor(private menuService: MenuService) {}
+  constructor(
+    private menuService: MenuService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   async ngOnInit() {}
 
-
-
-   logo = 'assets/icons/general/logo.svg';
-  
+  logo = "assets/icons/general/logo.svg";
 
   changeToggle() {
     this.menuService.toggleMenu();
   }
+
+  
 }

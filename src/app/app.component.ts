@@ -37,41 +37,9 @@ export class AppComponent {
     this.initializeApp();
   }
   async initLanguages(){
-    this.translate.addLangs(environment.languages.available);
-    const platformLang = window.navigator.language.split('-')[0];
-    const storageLang = await this.localStorage.getCurrentLanguage();
-    environment.languages.available.forEach(lang => {
-      this.translate.reloadLang(lang)
-    });
-    if(!storageLang){
-      if(environment.languages.available.includes(platformLang)){
-        this.currentLang = platformLang;
-        this.translate.use(this.currentLang);
-      }
-      else{
-        this.currentLang = environment.languages.default;
-        this.translate.use(this.currentLang);
-      }
-    }
-    else{
-      this.translate.use(storageLang);
-    }
+  
   }
 
-  initGoogle(){
-    this.platform.ready().then(() => {
-      GoogleAuth.initialize({
-        scopes: ["profile", "email"],
-        clientId: environment.googleClientId,
-      })
-    })
-  }
-
-  initFacebook(){
-    this.platform.ready().then(async () => {
-      await FacebookLogin.initialize({ appId: environment.facebookCLientId });
-    })
-  }
 
   async initLoading() {
     if(environment.production){
@@ -97,8 +65,6 @@ export class AppComponent {
     */
     // this.initNotifications()
     this.initLanguages();
-    this.initGoogle()
-    this.initFacebook();
     SplashScreen.hide();
   }
 }

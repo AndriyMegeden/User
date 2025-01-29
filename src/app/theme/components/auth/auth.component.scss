@@ -1,18 +1,20 @@
 .container {
-  .logo-container{
+  .logo-container {
     background-color: var(--white);
     width: 200px;
-    height: 50px;
+    height: auto;
+    border-radius: 50%;
     border-radius: 10px;
     img {
-      width: 170px;
-      height: 40px;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
     }
   }
   .title-container {
     height: auto;
     .title {
-      color: var( --dark-gray);
+      color: var(--dark-gray);
       font-family: Onest;
       font-size: 31px;
       font-weight: 700;
@@ -21,7 +23,7 @@
       text-align: left;
     }
     .subtitle {
-      color: var( --dark-gray);
+      color: var(--dark-gray);
       font-family: Onest;
       font-size: 19px;
       font-weight: 500;
@@ -35,7 +37,7 @@
       height: auto;
       min-height: 100px;
       .input-name {
-        color: var( --dark-gray);
+        color: var(--dark-gray);
         height: 28px;
         font-family: Onest;
         font-size: 18px;
@@ -47,7 +49,7 @@
       .ion-input {
         .warning {
           font-family: Onest;
-          color: var( --dark-gray);
+          color: var(--dark-gray);
           height: auto;
           width: 90%;
           margin-top: 10px;
@@ -73,7 +75,7 @@
         }
       }
       .input-name {
-        color: var( --dark-gray);
+        color: var(--dark-gray);
         height: 38px;
         font-family: Onest;
         font-size: 18px;
@@ -96,7 +98,7 @@
           --size: 28px;
           --border-width: 1px;
           --border-radius: 100px;
-          --border-color: var( --dark-gray);
+          --border-color: var(--dark-gray);
           --checkbox-background-checked: var(--yellow);
           --checkmark-color: var(--dark-gray);
           --border-color-checked: var(--yellow);
@@ -105,12 +107,12 @@
       .licence-text {
         font-family: Onest;
         span {
-          color: var( --dark-gray);
+          color: var(--dark-gray);
           font-weight: 400;
           font-size: 16px;
           line-height: 20px;
           a {
-            color: var( --dark-gray);
+            color: var(--dark-gray);
             text-decoration: none;
           }
         }
@@ -162,14 +164,14 @@
       span {
         color: var(--dark-gray);
         a {
-          color: var( --dark-gray);
+          color: var(--dark-gray);
           text-decoration: none;
         }
       }
     }
   }
   .forgot-password {
-    color: var( --dark-gray);
+    color: var(--dark-gray);
     height: 27px;
     font-family: Onest;
     font-size: 18px;

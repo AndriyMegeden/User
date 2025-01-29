@@ -6,10 +6,6 @@
         color: var(--black);
       }
       .row-box {
-        // ion-title {
-        //   color: var(--black);
-        //   flex: 0 0 0%;
-        // }
         .right {
           .user-container {
             ion-icon {
@@ -17,6 +13,16 @@
             }
             span {
               color: var(--black);
+            }
+          }
+        }
+        .left{
+          .logo{
+            max-width: 200px;
+            height: auto;
+            img{
+              width: 100%;
+              height: 100%;
             }
           }
         }

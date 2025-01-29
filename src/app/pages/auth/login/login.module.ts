@@ -9,6 +9,9 @@ import { LoginPage } from './login.page';
 import { ComponentsModule } from '@theme/components/components.module';
 import { LayoutsModule } from '@theme/layouts/layouts.module';
 
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { AuthService } from '@core/auth-service/services/auth.service';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -16,8 +19,10 @@ import { LayoutsModule } from '@theme/layouts/layouts.module';
     IonicModule,
     LoginPageRoutingModule,
     ComponentsModule,
-    LayoutsModule
+    LayoutsModule,
+    HttpClientModule
   ],
   declarations: [LoginPage],
+  providers: [AuthService]
 })
 export class LoginPageModule {}

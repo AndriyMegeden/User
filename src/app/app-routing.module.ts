@@ -19,12 +19,9 @@ const routes: Routes = [
     }
   },
   {
-    path: 'roles',
-    loadChildren: () => import('./pages/secure/roles/roles.module').then( m => m.RolesPageModule)
-  },
-  {
     path: 'secure',
-    loadChildren: () => import('./pages/secure/secure.module').then( m => m.SecurePageModule)
+    loadChildren: () => import('./pages/secure/secure.module').then( m => m.SecurePageModule),
+    canActivate: [AuthGuard]
   },
 
 ];

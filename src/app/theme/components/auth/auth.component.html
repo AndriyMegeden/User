@@ -71,8 +71,8 @@
       <div class="sign-up-button d-flex justify-center m-b-20">
         <ion-button
           class="general"
-          (click)="navigate('/secure')"
-          [disabled]="form.invalid || getError()"
+          (click)="login('/secure')"
+          [disabled]="form.invalid || submitted || getError()"
           vibrate
         >
           {{ currentMode.button | translate }}

@@ -1,10 +1,15 @@
-export interface AuthInfo{
-  avatar?: string;
-  role?: string;
-  firstName?: string;
+export interface User {
+  username?: string;
+  phoneNumber?: number;
+  email: string;
+  password: string;
+  returnSecureToken?: boolean;
 }
 
-export interface User extends AuthInfo{
-  userId: string
-  email: string;
+export interface FbAuthResponse {
+  idToken: string;
+  expiresIn: string;
+}
+export interface FbCreateResponse {
+  name: string;
 }

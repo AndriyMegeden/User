@@ -2,21 +2,18 @@
   <ion-accordion-group>
     <ion-accordion class="ion-accordion-second p-10 p-t-0" value="second">
       <ion-item slot="header" color="darc">
-        <img src="assets/icons/general/users-admin.svg" alt="">
+        <img src="assets/icons/general/users-admin.svg" alt="" />
         <ion-label class="p-l-20">Users</ion-label>
       </ion-item>
-      
-      <div class="ion-padding m-b-10 p-0 d-flex justify-start " slot="content">
+
+      <div class="ion-padding m-b-10 p-0 d-flex justify-start" slot="content">
         <button class="form-button p-l-20" (click)="navigateTo('register')">
           users-list
         </button>
       </div>
-
-      <div class="ion-padding p-0 d-flex justify-start " slot="content">
-        <button class="form-button p-l-20" (click)="navigateTo('request')">
-          users-roles
-        </button>
-      </div>
     </ion-accordion>
   </ion-accordion-group>
+  <ion-item slot="header" color="darc">
+    <ion-button (click)="logout()">Logout</ion-button>
+  </ion-item>
 </div>

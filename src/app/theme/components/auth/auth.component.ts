@@ -4,30 +4,11 @@ import { Router } from "@angular/router";
 import { isPlatform } from "@ionic/angular";
 import { AuthService } from "@core/auth-service/services/auth.service";
 import { HttpErrorService } from "@core/auth-service/services/http-error.service";
-import { Platform } from "@ionic/angular";
-
-import { GoogleAuth } from "@codetrix-studio/capacitor-google-auth";
-import {
-  FacebookLogin,
-  FacebookLoginResponse,
-} from "@capacitor-community/facebook-login";
-import {
-  SignInWithApple,
-  SignInWithAppleResponse,
-  SignInWithAppleOptions,
-} from "@capacitor-community/apple-sign-in";
-
-import { environment } from "@environments/environment";
-import {
-  loginSetting,
-  registerSetting,
-  forgotPasswordSettingsStep1,
-  forgotPasswordSettingsStep2,
-  forgotPasswordSettingsStep3,
-} from "@static/auth.settings";
+import { loginSetting } from "@static/auth.settings";
 import { AuthSettings, AuthType } from "@interfaces/auth.interface";
 import { logo } from "@static/theme.settings";
 import { ToastService } from "@services/general/toast.service";
+import { User } from "@interfaces/user.interface";
 
 type LoginType = "local" | "social";
 type SocialProvider = "google" | "facebook" | "apple";
@@ -47,8 +28,8 @@ export class AuthComponent implements OnInit {
 
   public isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
   public passwordShow: boolean = false;
-  public repeatPasswordShow: boolean = false;
   public passwordMatch: boolean = false;
+  public submitted: boolean = false;
   public resetEmail: string = "";
   public resetId: string = "";
   public resetSecret: string = "";
@@ -69,7 +50,6 @@ export class AuthComponent implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
-    // private socialAuthService: SocialAuthService,
     private httpErrorService: HttpErrorService,
     private toastService: ToastService
   ) {}
@@ -104,8 +84,21 @@ export class AuthComponent implements OnInit {
     this.form = new FormGroup(formControlsConfig);
   }
 
-  navigate(route: string) {
-    this.router.navigateByUrl(route);
+  login(route: string) {
+    if (this.form.invalid) {
+      return;
+    }
+    this.submitted = true
+
+    const user: User = {
+      email: this.form.value.email,
+      password: this.form.value.password,
+    };
+    this.authService.login(user).subscribe((res) => {
+      this.form.reset();
+      this.router.navigateByUrl(route);
+      this.submitted = false
+    });
   }
 
   getError() {

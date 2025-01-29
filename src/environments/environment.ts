@@ -2,12 +2,13 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const environment = {
-  production: true,
-  remoteApi: 'http://localhost:3000/api',
-  googleClientId: '200917649286-j20710538p8rilcnk2qjj53iq1jo77s2.apps.googleusercontent.com',
-  facebookCLientId: '903223107679645',
-  facebookPermissions: ['email','public_profile'],
+import { Environment } from "./interface";
+
+
+export const environment: Environment = {
+  production: false,
+  apiKey: "AIzaSyBR9yEA3m0HxZW0dkxGvrSaq6vNCpEhYmw",
+  fireBaseDBurl: "https://diplom-2ca74-default-rtdb.firebaseio.com/",
   languages: {
     available: ['en'],
     default: 'en'

@@ -3,47 +3,23 @@
     "send": "We send code enter here ",
     "large": "Large Input",
     "improve": "User",
-    "make": "Reliable team with extensive development experience",
+    "make": "Enter administrator login details",
     "sign_in_button": "Sign In",
     "send_button": "Send",
     "next_button": "Next",
     "sign_up_button": "Sign Up",
     "sign_up_title": "Sign Up",
-    "some_text": "Some text will be here",
-    "rеcovery_password": "Password Rеcovery ",
-    "enter": "Enter your email for recovery we send you code",
-    "name": "Name",
-    "surname": "Surname",
-    "country":"Country",
-    "city":"City",
-    "city_index":"City index",
     "email": "Email",
     "password": "Password",
-    "new_password": "New Password",
-    "repeat_password": "Repeat Password",
-    "or_sign_in_with": "Or sign in with",
-    "already": "Already have an account?",
-    "create": "Create new account?",
-    "clicking": "By clicking Sign Up, I agree that I haveread and",
     "accepted": " accepted",
     "privacy": "Privacy Policy",
     "terms": "Terms of Use",
     "code": "Code"
   },
-  "other":{
+  "other": {
     "errors": {
-      "phone_number_vaildation": "Enter a correct phone number",
-      "city_of_birth_vaildation": "Country and city of birth",
-      "at_least": "At least 4 characters",
-      "validation_firstName": "The name must have at least 3 characters",
-      "validation_lastName": "The surname must have at least 3 characters",
-      "validation_country": "The field must have at least 3 characters",
-      "validation_city": "The field must have at least 3 characters",
-      "validation_city_index": "The field must have at least 3 numbers",
       "validation_email": "Enter a valid email",
-      "validation_password": "Password must match and have at least 6 characters",
-      "at_least_characters": "At least 3 characters",
-      "date": "Select a date"
+      "validation_password": "Password must match and have at least 6 characters"
     }
   }
 }
