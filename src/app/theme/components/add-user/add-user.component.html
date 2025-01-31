@@ -1,4 +1,140 @@
-<p>
-  add-user works!
-  sndkjsgdsiud
-</p>
+<!-- <form [formGroup]="form"> -->
+<div class="wrapper w-100 d-flex justify-space-between">
+  <div class="left">
+    <div class="internet-connection m-b-20">
+      <div class="title m-b-10 d-flex justify-center">
+        <span>Internet connection</span>
+      </div>
+      <ion-item class="m-b-20">
+        <ion-input label="Connection date"></ion-input>
+      </ion-item>
+      <div class="active d-flex justify-center m-b-20">
+        <ion-radio-group class="d-flex align-center" value="custom-checked">
+          <span class="radio-text m-r-10">Active</span>
+          <ion-radio class="m-r-20" value="custom" aria-label="Custom checkbox"></ion-radio>
+          <ion-radio
+            value="custom-checked"
+            aria-label="Custom checkbox that is checked"
+          ></ion-radio>
+          <span class="radio-text m-l-10">Blocked</span>
+        </ion-radio-group>
+      </div>
+      <div class="connect-vlan d-flex">
+        <ion-item class="m-b-20 m-r-20">
+          <ion-input label="Balance"></ion-input>
+        </ion-item>
+        <ion-item class="m-b-20">
+          <ion-input label="Credit"></ion-input>
+        </ion-item>
+      </div>
+      <ion-button class="general">Change</ion-button>
+    </div>
+
+    <div class="options">
+      <div class="title m-b-10 d-flex justify-center">
+        <span>Connection options</span>
+      </div>
+      <div class="select d-flex justify-space-between m-b-10">
+        <div class="tariff">
+          <ion-list>
+            <ion-item>
+              <ion-select
+                labelPlacement="stacked"
+                label="Tariff"
+                value="Platinum"
+              >
+                <ion-select-option value="Platinum"
+                  >Platinum 800mb 300грн</ion-select-option
+                >
+                <ion-select-option value="Gold"
+                  >Gold 500mb 230грн</ion-select-option
+                >
+                <ion-select-option value="Premium"
+                  >Premium 300mb 180грн</ion-select-option
+                >
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </div>
+        <div class="ip">
+          <ion-list>
+            <ion-item>
+              <ion-select labelPlacement="stacked" label="IP" value="Dynamic">
+                <ion-select-option value="Dynamic">Dynamic</ion-select-option>
+                <ion-select-option value="Static">Static</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </div>
+      </div>
+      <ion-item class="m-b-20">
+        <ion-input label="Mac Adress"></ion-input>
+      </ion-item>
+      <div class="connect-vlan d-flex">
+        <ion-item class="m-b-20 m-r-20">
+          <ion-input label="Vlan"></ion-input>
+        </ion-item>
+        <ion-item class="m-b-20">
+          <ion-input label="Port"></ion-input>
+        </ion-item>
+      </div>
+      <ion-button class="general">Connect</ion-button>
+    </div>
+  </div>
+  <div class="right">
+    <div class="login-container m-b-20">
+      <div class="title m-b-10 d-flex justify-center">
+        <span>Login Form</span>
+      </div>
+      <ion-list class="p-0">
+        <ion-item class="m-b-20">
+          <ion-input label="Login"></ion-input>
+        </ion-item>
+        <ion-item class="m-b-20">
+          <ion-input label="Password" type="password"></ion-input>
+        </ion-item>
+      </ion-list>
+      <ion-button class="general">Submit</ion-button>
+    </div>
+
+    <div class="title m-b-10 d-flex justify-center"><span>User data</span></div>
+    <ion-list>
+      <div class="user-data">
+        <div class="about d-flex">
+          <ion-item class="m-b-20 m-r-20">
+            <ion-input label="Name"></ion-input>
+          </ion-item>
+          <ion-item class="m-b-20">
+            <ion-input label="Surname"></ion-input>
+          </ion-item>
+        </div>
+
+        <ion-item class="m-b-20">
+          <ion-input label="Telephone input" type="tel"></ion-input>
+        </ion-item>
+
+        <ion-item class="m-b-20">
+          <ion-input label="Email input" type="email"></ion-input>
+        </ion-item>
+
+        <ion-item class="m-b-20">
+          <ion-input label="Adress"></ion-input>
+        </ion-item>
+
+        <ion-item class="m-b-20">
+          <ion-input label="Password input" type="password"></ion-input>
+        </ion-item>
+      </div>
+      <div class="notes m-b-20">
+        <div class="notes-title m-b-10">
+          <span> Notes </span>
+        </div>
+        <ion-item>
+          <ion-textarea [autoGrow]="true" value=""> </ion-textarea>
+        </ion-item>
+      </div>
+      <ion-button class="general">Submit</ion-button>
+    </ion-list>
+  </div>
+</div>
+<!-- </form> -->
