@@ -1,4 +1,4 @@
-<ion-header class="d-flex">
+<ion-header>
   <ion-toolbar>
     <ion-buttons class="m-t-3" slot="start">
       <ion-button (click)="goBack()">
@@ -6,13 +6,13 @@
         Back
       </ion-button>
     </ion-buttons>
-    <ion-title> Users List </ion-title>
+    <ion-title> Create </ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <app-card>
-    <app-table></app-table>
-  </app-card>
+  <app-create>
+    <app-add-user></app-add-user>
+  </app-create>
 </ion-content>
 <ion-footer>
   <ion-toolbar>

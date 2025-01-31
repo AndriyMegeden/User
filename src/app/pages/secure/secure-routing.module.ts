@@ -18,6 +18,20 @@ const routes: Routes = [
       // }
     },
     ]
+  },
+  {
+    path: '',
+    component: SecurePage,
+    children: [
+    {
+      path: 'create',
+      loadChildren: () => import('./create-user/create-user.module').then(m => m.CreateUserPageModule),
+      canActivate: [AuthGuard],
+      // data: {
+      //   loader: true
+      // }
+    },
+    ]
   }
 ];
 

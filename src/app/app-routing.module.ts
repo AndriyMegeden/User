@@ -19,6 +19,14 @@ const routes: Routes = [
     }
   },
   {
+    path: 'create',
+    loadChildren: () => import('./pages/secure/create-user/create-user.module').then(m => m.CreateUserPageModule),
+    canActivate: [AuthGuard],
+    data: {
+      loader: true
+    }
+  },
+  {
     path: 'secure',
     loadChildren: () => import('./pages/secure/secure.module').then( m => m.SecurePageModule),
     canActivate: [AuthGuard]

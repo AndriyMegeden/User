@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-auth-users',
@@ -9,10 +10,16 @@ export class UsersPage implements OnInit {
 
   public menuActive: boolean;
 
-  constructor() { }
+  constructor(private navCtrl: NavController) { }
 
   ngOnInit() {
   }
+
+
+  goBack() {
+    this.navCtrl.back(); // Повертає на попередню сторінку
+  }
+
   menuChange(event){
     this.menuActive = event;
   }
