@@ -28,3 +28,26 @@ export interface LoginOffice {
   login: string;
   password: string;
 }
+
+export enum Tariff {
+  Platinum = "Platinum",
+  Gold = "Gold",
+  Premium = "Premium",
+}
+
+export enum IpType {
+  Static = "Static",
+  Dynamic = "Dynamic",
+}
+
+export interface SessionInterface {
+  isActive: boolean;
+  balance: number;
+  credit?: number;
+  macAdress: number;
+  vlan: number;
+  port: number;
+  tariff: Tariff; 
+  ipType: IpType; 
+  ipAddress?: string; 
+}

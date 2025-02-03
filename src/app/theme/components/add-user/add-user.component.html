@@ -1,85 +1,109 @@
 
 <div class="wrapper w-100 d-flex justify-space-between">
   <div class="left">
-    <div class="internet-connection m-b-20">
-      <div class="title m-b-10 d-flex justify-center">
-        <span>Internet connection</span>
-      </div>
-      <ion-item class="m-b-20">
-        <ion-input label="Connection date"></ion-input>
-      </ion-item>
-      <div class="active d-flex justify-center m-b-20">
-        <ion-radio-group class="d-flex align-center" value="custom-checked">
-          <span class="radio-text m-r-10">Active</span>
-          <ion-radio class="m-r-20" value="custom" aria-label="Custom checkbox"></ion-radio>
-          <ion-radio
-            value="custom-checked"
-            aria-label="Custom checkbox that is checked"
-          ></ion-radio>
-          <span class="radio-text m-l-10">Blocked</span>
-        </ion-radio-group>
-      </div>
-      <div class="connect-vlan d-flex">
-        <ion-item class="m-b-20 m-r-20">
-          <ion-input label="Balance"></ion-input>
-        </ion-item>
-        <ion-item class="m-b-20">
-          <ion-input label="Credit"></ion-input>
-        </ion-item>
-      </div>
-      <ion-button class="general">Change</ion-button>
-    </div>
-
-    <div class="options">
-      <div class="title m-b-10 d-flex justify-center">
-        <span>Connection options</span>
-      </div>
-      <div class="select d-flex justify-space-between m-b-10">
-        <div class="tariff">
-          <ion-list>
-            <ion-item>
-              <ion-select
-                labelPlacement="stacked"
-                label="Tariff"
-                value="Platinum"
-              >
-                <ion-select-option value="Platinum"
-                  >Platinum 800mb 300грн</ion-select-option
-                >
-                <ion-select-option value="Gold"
-                  >Gold 500mb 230грн</ion-select-option
-                >
-                <ion-select-option value="Premium"
-                  >Premium 300mb 180грн</ion-select-option
-                >
-              </ion-select>
-            </ion-item>
-          </ion-list>
+    <form [formGroup]="formInternetSession" (ngSubmit)="submitSession()">
+      <div class="internet-connection m-b-20">
+        <div class="title m-b-10 d-flex justify-center">
+          <span>Internet connection</span>
         </div>
-        <div class="ip">
-          <ion-list>
-            <ion-item>
-              <ion-select labelPlacement="stacked" label="IP" value="Dynamic">
-                <ion-select-option value="Dynamic">Dynamic</ion-select-option>
-                <ion-select-option value="Static">Static</ion-select-option>
-              </ion-select>
+        <div class="connection-time m-tb-20 d-flex justify-center">
+          <span class="title m-r-10">Time Connection: </span>
+            <div>{{ time }}</div> 
+        </div>
+        <div class="active d-flex justify-center m-b-20">
+          <ion-radio-group formControlName="isActive" class="d-flex align-center" value="custom-checked">
+            <span class="radio-text m-r-10">Active</span>
+            <ion-radio class="m-r-20" [value]="true" aria-label="Custom checkbox"></ion-radio>
+            <ion-radio
+            [value]="false"
+              aria-label="Custom checkbox that is checked"
+            ></ion-radio>
+            <span class="radio-text m-l-10">Pause</span>
+          </ion-radio-group>
+        </div>
+        <div class="connect-vlan d-flex">
+          <div class="balance m-b-20  m-r-20 d-flex flex-d-col">
+            <ion-item class="m-b-20">
+              <ion-input (keydown)="onPhoneInput($event)" formControlName="balance" label="Balance"></ion-input>
             </ion-item>
-          </ion-list>
+            <div class="validator m-b-20 m-l-20" *ngIf="formInternetSession.get('balance')?.invalid && formInternetSession.get('balance')?.touched">
+              <span *ngIf="formInternetSession.get('balance')?.errors?.['required']">Це поле обов'язкове</span>
+              <span *ngIf="formInternetSession.get('balance')?.errors?.['min']">Сума не повинна бути менше за 50</span>
+            </div>
+          </div>
+          <div class="credit m-b-20 d-flex flex-d-col">
+            <ion-item class="m-b-20">
+              <ion-input (keydown)="onPhoneInput($event)" formControlName="credit" label="Credit"></ion-input>
+            </ion-item>
+            <div class="validator m-b-20 m-l-20" *ngIf="formInternetSession.get('credit')?.invalid && formInternetSession.get('credit')?.touched">
+              <span *ngIf="formInternetSession.get('credit')?.errors?.['required']">Це поле обов'язкове</span>
+              <span *ngIf="formInternetSession.get('credit')?.errors?.['min']">Сума не повинна бути менше за 50</span>
+            </div>
+          </div>
+        </div>
+        <div class="session-active d-flex align-center p-lr-10" *ngIf="formInternetSession.valid && formInternetSession.get('isActive')?.value">
+          <span>Session Active ✅</span>
+        </div>
+        <div class="session-active pause d-flex align-center p-lr-10" *ngIf="formInternetSession.valid && !formInternetSession.get('isActive')?.value">
+          <span>The session is stopped ❌</span>
         </div>
       </div>
-      <ion-item class="m-b-20">
-        <ion-input label="Mac Adress"></ion-input>
-      </ion-item>
-      <div class="connect-vlan d-flex">
-        <ion-item class="m-b-20 m-r-20">
-          <ion-input label="Vlan"></ion-input>
-        </ion-item>
+      <div class="options">
+        <div class="title m-b-10 d-flex justify-center">
+          <span>Connection options</span>
+        </div>
+        <div class="select d-flex justify-space-between m-b-10">
+          <div class="tariff">
+            <ion-list>
+              <ion-item>
+                <ion-select
+                formControlName="tariff"
+                  labelPlacement="stacked"
+                  label="Tariff"
+                  value="Platinum"
+                >
+                  <ion-select-option value="Platinum"
+                    >Platinum 800mb 300грн</ion-select-option
+                  >
+                  <ion-select-option value="Gold"
+                    >Gold 500mb 230грн</ion-select-option
+                  >
+                  <ion-select-option value="Premium"
+                    >Premium 300mb 180грн</ion-select-option
+                  >
+                </ion-select>
+              </ion-item>
+            </ion-list>
+          </div>
+          <div class="ip"  >
+            <ion-list>
+              <ion-item>
+                <ion-select labelPlacement="stacked" label="IP" value="Dynamic" formControlName="ipType">
+                  <ion-select-option value="Dynamic">Dynamic</ion-select-option>
+                  <ion-select-option value="Static">Static</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-list>
+          </div>
+        </div>
         <ion-item class="m-b-20">
-          <ion-input label="Port"></ion-input>
+          <ion-input formControlName="macAdress" label="Mac Adress"></ion-input>
         </ion-item>
+        <div class="validator m-b-20 m-l-20" *ngIf="formInternetSession.get('macAdress')?.invalid && formInternetSession.get('macAdress')?.touched">
+          <span *ngIf="formInternetSession.get('macAdress')?.errors?.['required']">Це поле обов'язкове</span>
+          <span *ngIf="formInternetSession.get('macAdress')?.errors?.['pattern']">Правильний формат XX:XX:XX:XX:XX:XX</span>
+        </div>
+        <div class="connect-vlan d-flex">
+          <ion-item class="m-b-20 m-r-20">
+            <ion-input maxlength="4"  (keydown)="onPhoneInput($event)" formControlName="vlan" label="Vlan"></ion-input>
+          </ion-item>
+          <ion-item class="m-b-20">
+            <ion-input formControlName="port" maxlength="3"  (keydown)="onPhoneInput($event)" label="Port"></ion-input>
+          </ion-item>
+        </div>
+        <ion-button type="submit" [disabled]="formInternetSession.invalid" class="general">Connect</ion-button>
       </div>
-      <ion-button class="general">Connect</ion-button>
-    </div>
+    </form>
   </div>
   <div class="right">
     <form [formGroup]="formLogin" (ngSubmit)="submitLogin()">
