@@ -22,5 +22,9 @@ export interface UserData {
   email?: string;
   adress: string;
   textarea?: string;
-  
+}
+
+export interface LoginOffice {
+  login: string;
+  password: string;
 }

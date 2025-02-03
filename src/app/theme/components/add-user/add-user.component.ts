@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { UserData } from "@interfaces/user.interface";
+import { LoginOffice, UserData } from "@interfaces/user.interface";
 
 @Component({
   selector: "app-add-user",
@@ -8,48 +8,73 @@ import { UserData } from "@interfaces/user.interface";
   styleUrls: ["./add-user.component.scss"],
 })
 export class AddUserComponent implements OnInit {
-  form: FormGroup;
-
+  formData: FormGroup;
+  formLogin: FormGroup;
+  public passwordShow: boolean = false;
   constructor() {}
 
   ngOnInit() {
-    this.form = new FormGroup({
-      name: new FormControl(null, [Validators.required, Validators.minLength(3)]),
-      surname: new FormControl(null, [Validators.required, Validators.minLength(3)]),
+    // форма створення абонента
+    this.formData = new FormGroup({
+      name: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(3),
+      ]),
+      surname: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(3),
+      ]),
       telephone: new FormControl(null, [
         Validators.required,
-        Validators.pattern(/^\+?\d{10,10}$/)  // Валідація для номера телефону
+        Validators.pattern(/^\+?\d{10,10}$/), // Валідація для номера телефону
       ]),
       email: new FormControl(null, Validators.email),
-      adress: new FormControl(null, [Validators.required, Validators.minLength(3)]),
+      adress: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(3),
+      ]),
       textarea: new FormControl(null),
+    });
+    // форма даних кабінета користувача
+    this.formLogin = new FormGroup({
+      login: new FormControl(null, [Validators.required,  Validators.minLength(3)]),
+      password: new FormControl(null, [Validators.required,  Validators.minLength(3)]),
     });
   }
 
   // дозволяє вводити тільки цифри
   onPhoneInput(event: KeyboardEvent) {
-    const allowedKeys = ['Backspace', 'ArrowLeft', 'ArrowRight', 'Tab']; // Дозволяємо натискання цих клавіш
+    const allowedKeys = ["Backspace", "ArrowLeft", "ArrowRight", "Tab"]; // Дозволяємо натискання цих клавіш
     const char = String.fromCharCode(event.keyCode);
-  
+
     if (!/[\d+]/.test(char) && !allowedKeys.includes(event.key)) {
       event.preventDefault(); // Блокуємо введення, якщо символ не цифра або знак '+'
     }
   }
-  
-  
 
-  submit() {
-    if (this.form.invalid) {
+  submitData() {
+    if (this.formData.invalid) {
       return;
     }
     const data: UserData = {
-      name: this.form.value.name,
-      surname: this.form.value.surname,
-      telephone: this.form.value.telephone,
-      email: this.form.value.email,
-      adress: this.form.value.adress,
-      textarea: this.form.value.textarea,
+      name: this.formData.value.name,
+      surname: this.formData.value.surname,
+      telephone: this.formData.value.telephone,
+      email: this.formData.value.email,
+      adress: this.formData.value.adress,
+      textarea: this.formData.value.textarea,
     };
-    console.log(data)
+    console.log(data);
+  }
+
+  submitLogin() {
+    if (this.formLogin.invalid) {
+      return;
+    }
+    const loginData: LoginOffice = {
+      login: this.formLogin.value.login,
+      password: this.formLogin.value.password,
+    };
+    console.log(loginData);
   }
 }
