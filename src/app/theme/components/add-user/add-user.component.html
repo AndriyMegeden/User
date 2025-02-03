@@ -102,37 +102,63 @@
       <ion-list>
         <div class="user-data">
           <div class="about d-flex">
-            <ion-item class="m-b-20 m-r-20">
-              <ion-input formControlName="name" label="Name"></ion-input>
-              <!-- <small *ngIf="form.get('name').errors.required">
-                шось пішло не так
-              </small> -->
-            </ion-item>
-            <ion-item class="m-b-20">
-              <ion-input formControlName="surname" label="Surname"></ion-input>
-            </ion-item>
+            <div class="input-name m-b-20 m-r-20 d-flex flex-d-col">
+              <ion-item>
+                <ion-input formControlName="name" label="Name"></ion-input>
+              </ion-item>
+              <div class="validator m-t-20 m-l-20" *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
+                <span *ngIf="form.get('name')?.errors?.['required']">Це поле обов'язкове</span>
+                <span *ngIf="form.get('name')?.errors?.['minlength']">Мінімальна кількість символів 3</span>
+              </div>
+            </div>
+            <div class="input-surname m-b-20">
+              <ion-item>
+                <ion-input formControlName="surname" label="Surname"></ion-input>
+              </ion-item>
+              <div class="validator  m-t-20 m-l-20" *ngIf="form.get('surname')?.invalid && form.get('surname')?.touched">
+                <span *ngIf="form.get('surname')?.errors?.['required']">Це поле обов'язкове</span>
+                <span *ngIf="form.get('surname')?.errors?.['minlength']">Мінімальна кількість символів 3</span>
+              </div>
+            </div>
+           
           </div>
-  
           <ion-item class="m-b-20">
-            <ion-input formControlName="telephone" label="Telephone" type="tel"></ion-input>
+            <ion-input  id="telephone" (keydown)="onPhoneInput($event)" formControlName="telephone" label="Telephone" type="tel"></ion-input>
           </ion-item>
+          <div class="validator m-b-20 m-l-20" *ngIf="form.get('telephone')?.invalid && form.get('telephone')?.touched">
+            <span *ngIf="form.get('telephone')?.errors?.['required']">Номер телефону обов'язковий</span>
+            <span *ngIf="form.get('telephone')?.errors?.['pattern']">Некоректний формат номера</span>
+          </div>
   
           <ion-item class="m-b-20">
             <ion-input formControlName="email" label="Email" type="email"></ion-input>
           </ion-item>
+
+          <div class="validator m-b-20 m-l-20" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
+            <span *ngIf="form.get('email')?.errors?.['email']">Некоректний формат email</span>
+          </div>
   
           <ion-item class="m-b-20">
             <ion-input formControlName="adress" label="Adress"></ion-input>
           </ion-item>
+          <div class="validator m-b-20 m-l-20" *ngIf="form.get('adress')?.invalid && form.get('adress')?.touched">
+            <span *ngIf="form.get('adress')?.errors?.['required']">Адреса обов'язкова</span>
+            <span *ngIf="form.get('adress')?.errors?.['minlength']">Мінімальна кількість символів 3</span>
+          </div>
   
         </div>
         <div class="notes m-b-20">
           <div class="notes-title m-b-10">
             <span> Notes </span>
           </div>
-          <ion-item>
-            <ion-textarea formControlName="textarea" [autoGrow]="true" value=""> </ion-textarea>
-          </ion-item>
+            <ion-textarea
+            class="p-lr-8"
+            formControlName="textarea"
+            labelPlacement="stacked"
+            [autoGrow]="true"
+          >
+          </ion-textarea>
+
         </div>
         <ion-button class="general" type="submit" [disabled]="form.invalid">Submit</ion-button>
       </ion-list>

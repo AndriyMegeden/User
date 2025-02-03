@@ -1,4 +1,7 @@
 .wrapper {
+  .validator{
+    color: var(--red);
+  }
   .left {
     .radio-text {
       font-size: 20px;
@@ -45,7 +48,12 @@
         }
       }
       ion-textarea {
+        border-radius: 15px;
+        border: 1px solid var(--black);
+        color: var(--black);
         resize: vertical;
+        --border-color: none;
+        --highlight-color: none;
       }
     }
   }

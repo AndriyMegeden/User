@@ -21,6 +21,6 @@ export interface UserData {
   telephone: number;
   email?: string;
   adress: string;
-  textarea: string;
+  textarea?: string;
   
 }
