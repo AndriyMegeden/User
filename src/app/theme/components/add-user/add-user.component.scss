@@ -22,6 +22,14 @@
           background: rgb(151, 1, 1);
         }
       }
+      .active{
+        ion-radio-group{
+          ion-radio.radio-checked::part(container) {
+            background: var(--blue);
+            border-color: transparent;
+          }
+        }
+      }
     }
   }
   ion-item {
