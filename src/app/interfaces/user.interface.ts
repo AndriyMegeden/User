@@ -13,3 +13,14 @@ export interface FbAuthResponse {
 export interface FbCreateResponse {
   name: string;
 }
+
+export interface UserData {
+  id?: string;
+  name: string;
+  surname: string;
+  telephone: number;
+  email?: string;
+  adress: string;
+  textarea: string;
+  
+}

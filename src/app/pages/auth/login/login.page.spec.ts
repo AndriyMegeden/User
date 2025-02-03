@@ -1,16 +1,18 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { LoginPage } from './login.page';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+
 
 describe('LoginPage', () => {
   let component: LoginPage;
   let fixture: ComponentFixture<LoginPage>;
 
-  beforeEach(waitForAsync () => {
-    fixture = TestBed.createComponent(LoginPage);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [LoginPage],
+      imports: [], // Додай потрібні модулі, наприклад, IonicModule
+    }).compileComponents();
+  }));
+  
   it('should create', () => {
     expect(component).toBeTruthy();
   });

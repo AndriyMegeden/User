@@ -55,6 +55,7 @@ export class AppComponent {
       })
     }
   }
+  
 
   initializeApp() {
     /* To make sure we provide the fastest app loading experience

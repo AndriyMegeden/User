@@ -1,4 +1,4 @@
-<!-- <form [formGroup]="form"> -->
+
 <div class="wrapper w-100 d-flex justify-space-between">
   <div class="left">
     <div class="internet-connection m-b-20">
@@ -82,7 +82,7 @@
     </div>
   </div>
   <div class="right">
-    <div class="login-container m-b-20">
+    <!-- <div class="login-container m-b-20">
       <div class="title m-b-10 d-flex justify-center">
         <span>Login Form</span>
       </div>
@@ -95,46 +95,48 @@
         </ion-item>
       </ion-list>
       <ion-button class="general">Submit</ion-button>
-    </div>
+    </div> -->
 
-    <div class="title m-b-10 d-flex justify-center"><span>User data</span></div>
-    <ion-list>
-      <div class="user-data">
-        <div class="about d-flex">
-          <ion-item class="m-b-20 m-r-20">
-            <ion-input label="Name"></ion-input>
-          </ion-item>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="title m-b-10 d-flex justify-center"><span>User data</span></div>
+      <ion-list>
+        <div class="user-data">
+          <div class="about d-flex">
+            <ion-item class="m-b-20 m-r-20">
+              <ion-input formControlName="name" label="Name"></ion-input>
+              <!-- <small *ngIf="form.get('name').errors.required">
+                шось пішло не так
+              </small> -->
+            </ion-item>
+            <ion-item class="m-b-20">
+              <ion-input formControlName="surname" label="Surname"></ion-input>
+            </ion-item>
+          </div>
+  
           <ion-item class="m-b-20">
-            <ion-input label="Surname"></ion-input>
+            <ion-input formControlName="telephone" label="Telephone" type="tel"></ion-input>
+          </ion-item>
+  
+          <ion-item class="m-b-20">
+            <ion-input formControlName="email" label="Email" type="email"></ion-input>
+          </ion-item>
+  
+          <ion-item class="m-b-20">
+            <ion-input formControlName="adress" label="Adress"></ion-input>
+          </ion-item>
+  
+        </div>
+        <div class="notes m-b-20">
+          <div class="notes-title m-b-10">
+            <span> Notes </span>
+          </div>
+          <ion-item>
+            <ion-textarea formControlName="textarea" [autoGrow]="true" value=""> </ion-textarea>
           </ion-item>
         </div>
-
-        <ion-item class="m-b-20">
-          <ion-input label="Telephone input" type="tel"></ion-input>
-        </ion-item>
-
-        <ion-item class="m-b-20">
-          <ion-input label="Email input" type="email"></ion-input>
-        </ion-item>
-
-        <ion-item class="m-b-20">
-          <ion-input label="Adress"></ion-input>
-        </ion-item>
-
-        <ion-item class="m-b-20">
-          <ion-input label="Password input" type="password"></ion-input>
-        </ion-item>
-      </div>
-      <div class="notes m-b-20">
-        <div class="notes-title m-b-10">
-          <span> Notes </span>
-        </div>
-        <ion-item>
-          <ion-textarea [autoGrow]="true" value=""> </ion-textarea>
-        </ion-item>
-      </div>
-      <ion-button class="general">Submit</ion-button>
-    </ion-list>
+        <ion-button class="general" type="submit" [disabled]="form.invalid">Submit</ion-button>
+      </ion-list>
+    </form>
   </div>
 </div>
-<!-- </form> -->
+
