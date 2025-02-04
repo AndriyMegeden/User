@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { AuthService } from "@core/auth-service/services/auth.service";
 import { AddUserComponent } from "./add-user/add-user.component";
+import { SearchPipe } from "@theme/search.pipe";
 
 @NgModule({
   imports: [
@@ -20,7 +21,7 @@ import { AddUserComponent } from "./add-user/add-user.component";
     NgxTranslateModule,
     HttpClientModule,
   ],
-  declarations: [AuthComponent, TableComponent, AddUserComponent],
+  declarations: [AuthComponent, TableComponent, AddUserComponent, SearchPipe],
   exports: [AuthComponent, TableComponent, AddUserComponent],
   providers: [AuthService],
 })

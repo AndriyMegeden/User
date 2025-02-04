@@ -8,7 +8,7 @@ import { Environment } from "./interface";
 export const environment: Environment = {
   production: false,
   apiKey: "AIzaSyBR9yEA3m0HxZW0dkxGvrSaq6vNCpEhYmw",
-  fireBaseDBurl: "https://diplom-2ca74-default-rtdb.firebaseio.com/",
+  fireBaseDBurl: "https://diplom-2ca74-default-rtdb.firebaseio.com",
   languages: {
     available: ['en'],
     default: 'en'

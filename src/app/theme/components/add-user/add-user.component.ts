@@ -7,6 +7,7 @@ import {
   Tariff,
   UserData,
 } from "@interfaces/user.interface";
+import { UserService } from "@services/general/user.service";
 
 @Component({
   selector: "app-add-user",
@@ -22,7 +23,7 @@ export class AddUserComponent implements OnInit {
   public timer: any = null;
 
 
-  constructor() {}
+  constructor(private userSevice: UserService) {}
 
   // запустити таймер
   startTimer() {
@@ -175,6 +176,9 @@ export class AddUserComponent implements OnInit {
       textarea: this.formData.value.textarea,
     };
     console.log(data);
+    this.userSevice.create(data).subscribe(()=> {
+      this.formData.reset()
+    })
   }
 
   submitLogin() {

@@ -10,6 +10,8 @@ export interface FbAuthResponse {
   idToken: string;
   expiresIn: string;
 }
+
+// айді кожного юзера
 export interface FbCreateResponse {
   name: string;
 }

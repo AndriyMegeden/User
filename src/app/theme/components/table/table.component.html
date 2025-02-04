@@ -1,14 +1,18 @@
-<section class="table-container d-flex flex-d-col align-end">
+<ion-item>
+  <ion-input type="text" placeholder="search user" [(ngModel)]="searchStr"></ion-input>
+</ion-item>
+<section *ngFor="let user of users | searchUser: searchStr; let idx = index"  class="table-container d-flex flex-d-col align-end">
   <section [class.table]="toggle" [class.table-small]="!toggle">
     <ion-grid>
       <ion-row class="d-flex justify-space-between">
+        <ion-button (click)="remove(user.id)">Delete</ion-button>>
         <div class="Actions">Actions</div>
         <div><a class="user-info">iD</a></div>
         <div><a class="user-info">Name</a></div>
         <div><a class="user-info">Surname</a></div>
-        <div><a class="user-info">Country</a></div>
+        <div><a class="user-info">Adress</a></div>
         <div><a class="user-info">E-mail</a></div>
-        <div><a class="user-info">Age</a></div>
+        <div><a class="user-info">Telephone</a></div>
       </ion-row>
 
       <ion-row class="d-flex justify-space-between">
@@ -16,12 +20,12 @@
           <ion-checkbox></ion-checkbox>
         </div>
 
-        <div>2323224</div>
-        <div>Andriy</div>
-        <div>Megeden</div>
-        <div>Ukraine</div>
-        <div>Ukrain gmail.com</div>
-        <div>19</div>
+        <div>{{idx + 1}}</div>
+        <div>{{user.name}}</div>
+        <div>{{user.surname}}</div>
+        <div>{{user.adress}}</div>
+        <div>{{user.email}}</div>
+        <div>{{user.telephone}}</div>
       </ion-row>
     </ion-grid>
   </section>

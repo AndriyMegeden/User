@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Provider } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -9,12 +9,19 @@ import { AppComponent } from './app.component';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { AuthGuard } from '@core/auth-service/guards/auth.guard';
+import { AuthInterceptor } from '@core/auth-service/services/auth.interceptor';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
+}
+
+const INTERCEPTOR_POVIDER: Provider = {
+    provide: HTTP_INTERCEPTORS,
+    multi: true,
+    useClass: AuthInterceptor
 }
 
 @NgModule({
@@ -34,6 +41,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         })
     ],
     providers: [
+        INTERCEPTOR_POVIDER,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
         AuthGuard
     ],
