@@ -4,12 +4,13 @@
   <ion-input type="text" placeholder="search user" [(ngModel)]="searchStr"></ion-input>
 </ion-item>
 <div *ngIf="users.length; else loading"> 
+  
   <section *ngFor="let user of users | searchUser: searchStr; let idx = index"  class="table-container d-flex flex-d-col align-end">
+    <ion-button (click)="remove(user.id)">Delete</ion-button>>
+    <ion-button [routerLink]="['/user-edit', user.id]">edit</ion-button>
     <section [class.table]="toggle" [class.table-small]="!toggle">
       <ion-grid>
         <ion-row class="d-flex justify-space-between">
-          <ion-button (click)="remove(user.id)">Delete</ion-button>>
-          <ion-button [routerLink]="['/user-edit', user.id]">edit</ion-button>
           <div class="Actions">Actions</div>
           <div><a class="user-info">iD</a></div>
           <div><a class="user-info">Name</a></div>

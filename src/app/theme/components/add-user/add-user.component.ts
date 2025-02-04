@@ -23,7 +23,7 @@ export class AddUserComponent implements OnInit {
   public timer: any = null;
 
 
-  constructor(private userSevice: UserService) {}
+  constructor(private userService: UserService) {}
 
   // запустити таймер
   startTimer() {
@@ -176,7 +176,7 @@ export class AddUserComponent implements OnInit {
       textarea: this.formData.value.textarea,
     };
     console.log(data);
-    this.userSevice.create(data).subscribe(()=> {
+    this.userService.create(data).subscribe(()=> {
       this.formData.reset()
     })
   }

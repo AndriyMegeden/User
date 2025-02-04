@@ -5,11 +5,12 @@ import { CommonModule } from "@angular/common";
 import { TableComponent } from "./table/table.component";
 import { NgxTranslateModule } from "@core/plugins/ngx-translate/ngx-translate.module";
 import { AuthComponent } from "./auth/auth.component";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule,  } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { AuthService } from "@core/auth-service/services/auth.service";
 import { AddUserComponent } from "./add-user/add-user.component";
 import { SearchPipe } from "@theme/search.pipe";
+import { EditUserComponent } from "./edit-user/edit-user.component";
 
 @NgModule({
   imports: [
@@ -20,9 +21,10 @@ import { SearchPipe } from "@theme/search.pipe";
     ReactiveFormsModule,
     NgxTranslateModule,
     HttpClientModule,
+    
   ],
-  declarations: [AuthComponent, TableComponent, AddUserComponent, SearchPipe],
-  exports: [AuthComponent, TableComponent, AddUserComponent],
+  declarations: [AuthComponent, TableComponent, AddUserComponent, EditUserComponent, SearchPipe],
+  exports: [AuthComponent, TableComponent, AddUserComponent, EditUserComponent],
   providers: [AuthService],
 })
 export class ComponentsModule {}

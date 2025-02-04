@@ -9,7 +9,6 @@ import { UserEditPageRoutingModule } from "./user-edit-routing.module";
 import { UserEditPage } from "./user-edit.page";
 import { LayoutsModule } from "@theme/layouts/layouts.module";
 import { ParticalsModule } from "@theme/particals/particals.module";
-import { EditUserComponent } from "@theme/components/edit-user/edit-user.component";
 
 @NgModule({
   imports: [
@@ -21,6 +20,6 @@ import { EditUserComponent } from "@theme/components/edit-user/edit-user.compone
     ParticalsModule,
     UserEditPageRoutingModule,
   ],
-  declarations: [UserEditPage, EditUserComponent],
+  declarations: [UserEditPage],
 })
 export class UserEditPagePageModule {}

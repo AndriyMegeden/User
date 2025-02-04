@@ -34,6 +34,22 @@ export class UserService {
         }))
     }
 
+    getById(id: string): Observable<UserData>{
+        return this.http.get<UserData>(`${environment.fireBaseDBurl}/users/${id}.json`)
+        .pipe(map((user: UserData) => {
+            return {
+                ...user,
+                id,
+            }
+        }))
+    }
+    
+    update(user: UserData): Observable<UserData>{
+        return this.http.patch<UserData>(`${environment.fireBaseDBurl}/users/${user.id}.json`, user);
+    }
+
+
+    
     remove(id: string): Observable<void> {
         return this.http.delete<void>(`${environment.fireBaseDBurl}/users/${id}.json`)
     }
