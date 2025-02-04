@@ -19,6 +19,14 @@ const routes: Routes = [
     }
   },
   {
+    path: 'user-edit/:id',
+    loadChildren: () => import('./pages/secure/user-edit/user-edit.module').then(m => m.UserEditPagePageModule),
+    canActivate: [AuthGuard],
+    data: {
+      loader: true
+    }
+  },
+  {
     path: 'create',
     loadChildren: () => import('./pages/secure/create-user/create-user.module').then(m => m.CreateUserPageModule),
     canActivate: [AuthGuard],

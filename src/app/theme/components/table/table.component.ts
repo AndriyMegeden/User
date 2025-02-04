@@ -9,7 +9,7 @@ import { Subscription } from "rxjs";
   styleUrls: ["./table.component.scss"],
 })
 export class TableComponent implements OnInit, OnDestroy {
-  public users: UserData[];
+  public users: UserData[] = [];
   public searchStr: string = "";
   public uSub: Subscription;
   public rSub: Subscription;

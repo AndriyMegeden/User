@@ -1,32 +1,41 @@
+
+
 <ion-item>
   <ion-input type="text" placeholder="search user" [(ngModel)]="searchStr"></ion-input>
 </ion-item>
-<section *ngFor="let user of users | searchUser: searchStr; let idx = index"  class="table-container d-flex flex-d-col align-end">
-  <section [class.table]="toggle" [class.table-small]="!toggle">
-    <ion-grid>
-      <ion-row class="d-flex justify-space-between">
-        <ion-button (click)="remove(user.id)">Delete</ion-button>>
-        <div class="Actions">Actions</div>
-        <div><a class="user-info">iD</a></div>
-        <div><a class="user-info">Name</a></div>
-        <div><a class="user-info">Surname</a></div>
-        <div><a class="user-info">Adress</a></div>
-        <div><a class="user-info">E-mail</a></div>
-        <div><a class="user-info">Telephone</a></div>
-      </ion-row>
-
-      <ion-row class="d-flex justify-space-between">
-        <div class="checkbox d-flex justify-center">
-          <ion-checkbox></ion-checkbox>
-        </div>
-
-        <div>{{idx + 1}}</div>
-        <div>{{user.name}}</div>
-        <div>{{user.surname}}</div>
-        <div>{{user.adress}}</div>
-        <div>{{user.email}}</div>
-        <div>{{user.telephone}}</div>
-      </ion-row>
-    </ion-grid>
+<div *ngIf="users.length; else loading"> 
+  <section *ngFor="let user of users | searchUser: searchStr; let idx = index"  class="table-container d-flex flex-d-col align-end">
+    <section [class.table]="toggle" [class.table-small]="!toggle">
+      <ion-grid>
+        <ion-row class="d-flex justify-space-between">
+          <ion-button (click)="remove(user.id)">Delete</ion-button>>
+          <ion-button [routerLink]="['/user-edit', user.id]">edit</ion-button>
+          <div class="Actions">Actions</div>
+          <div><a class="user-info">iD</a></div>
+          <div><a class="user-info">Name</a></div>
+          <div><a class="user-info">Surname</a></div>
+          <div><a class="user-info">Adress</a></div>
+          <div><a class="user-info">E-mail</a></div>
+          <div><a class="user-info">Telephone</a></div>
+        </ion-row>
+  
+        <ion-row class="d-flex justify-space-between">
+          <div class="checkbox d-flex justify-center">
+            <ion-checkbox></ion-checkbox>
+          </div>
+  
+          <div>{{idx + 1}}</div>
+          <div>{{user.name}}</div>
+          <div>{{user.surname}}</div>
+          <div>{{user.adress}}</div>
+          <div>{{user.email}}</div>
+          <div>{{user.telephone}}</div>
+        </ion-row>
+      </ion-grid>
+    </section>
   </section>
-</section>
+</div>
+
+<ng-template #loading>
+  <p class="text-center">loading...</p>
+</ng-template>

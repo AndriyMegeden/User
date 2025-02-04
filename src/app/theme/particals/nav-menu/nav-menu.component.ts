@@ -30,13 +30,17 @@ export class NavMenuComponent implements OnChanges {
 
   async ngOnChanges() {}
 
+// Перенаправлення
   navigateTo(page: string): void {
     if (page === 'users') {
-      this.router.navigate(['/users']); // Перенаправлення на список користувачів
+      this.router.navigate(['/users']); 
     } else if (page === 'create') {
-      this.router.navigate(['/create']); // Перенаправлення на сторінку створення користувача
+      this.router.navigate(['/create']); 
+    } else if (page === 'user-edit') {  
+      this.router.navigate(['/user-edit']);
     }
   }
+  
   
 
   logout() {
