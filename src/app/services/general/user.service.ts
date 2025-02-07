@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "@environments/environment";
-import {  FbCreateResponse, UserData } from "@interfaces/user.interface";
+import {  FbCreateResponse, LoginOffice, SessionInterface, UserData } from "@interfaces/user.interface";
 import { map, Observable } from "rxjs";
 
 @Injectable({
@@ -11,7 +11,7 @@ export class UserService {
     constructor(private http: HttpClient ){}
 
 
-    create(user: UserData): Observable<UserData>{
+    createUser(user: UserData): Observable<UserData>{
         return this.http.post<UserData>(`${environment.fireBaseDBurl}/users.json`, user)
         .pipe(map((response: FbCreateResponse) => {
             return {
@@ -20,6 +20,16 @@ export class UserService {
             }
         }))
     }
+    createLogin(userId: string, login: LoginOffice): Observable<LoginOffice> {
+        return this.http.put<LoginOffice>(`${environment.fireBaseDBurl}/users/${userId}/login.json`, login);
+    }
+    
+    createSessionData(userId: string, session: SessionInterface): Observable<SessionInterface> {
+        return this.http.put<SessionInterface>(`${environment.fireBaseDBurl}/users/${userId}/sessions.json`, session);
+    }
+    
+
+    
     //виконує HTTP-запит до Firebase, отримує список користувачів у вигляді об'єкта, 
     // перетворює його у масив і повертає у вигляді Observable<UserData[]>
     getAll(): Observable<UserData[]>{
