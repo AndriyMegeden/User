@@ -22,7 +22,7 @@ export class AddUserComponent implements OnInit {
   public time: string = "00:00:00:00"; // Стартовий час
   public timer: any = null;
   public userId: string | null = null;
-
+  public isDataInLocalStorage: boolean = false;
   constructor(private userService: UserService) {}
 
   // запустити таймер
@@ -110,6 +110,17 @@ export class AddUserComponent implements OnInit {
       ]),
     });
 
+    // save invalid поки я не відправлю дані користувача
+    this.isDataInLocalStorage = JSON.parse(localStorage.getItem("isDataInLocalStorage") || "false");
+   
+    this.formData.valueChanges.subscribe(() => {
+      if (this.formData.invalid) {
+        this.isDataInLocalStorage = false;
+        localStorage.setItem("isDataInLocalStorage", JSON.stringify(false));
+      }
+    });
+
+
     // форма підключення сесії
     this.formInternetSession = new FormGroup({
       isActive: new FormControl(true),
@@ -178,7 +189,8 @@ export class AddUserComponent implements OnInit {
       adress: this.formData.value.adress,
       textarea: this.formData.value.textarea,
     };
-
+    this.isDataInLocalStorage = true
+    localStorage.setItem("isDataInLocalStorage", JSON.stringify(true));
     localStorage.setItem("userData", JSON.stringify(data)); // Зберігаємо всі дані
   }
 
@@ -215,8 +227,8 @@ export class AddUserComponent implements OnInit {
     const storedUserData = localStorage.getItem("userData");
     const storedLoginData = localStorage.getItem("userLogin");
     const storedSessionData = localStorage.getItem("sessionData");
-
-    if (!storedUserData || !storedLoginData || !storedSessionData) {
+    const storedUserId = localStorage.getItem("userId");
+    if (!storedUserData || !storedLoginData || !storedSessionData ) {
       return;
     }
 
@@ -228,6 +240,15 @@ export class AddUserComponent implements OnInit {
     this.userService.createUser(userData).subscribe(
       (newUser) => {
         if (newUser && newUser.id) {
+          if (storedUserId === newUser.id) {
+            console.log("Такий користувач вже є");
+            return; // Виходимо з функції, не створюючи нового користувача
+          }
+          if (storedUserData === JSON.stringify(userData)) {
+            console.log("Такий користувач вже є");
+            return; // Вихід з функції, якщо користувач вже є в localStorage
+          }
+          
           this.userId = newUser.id;
           localStorage.setItem("userId", this.userId);
 

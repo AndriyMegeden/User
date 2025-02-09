@@ -215,5 +215,5 @@
       </div>    
     </div>
   
-  <ion-button class="general m-b-24" (click)="saveAll()">Save</ion-button>
+  <ion-button class="general m-b-24" type="submit" [disabled]="!isDataInLocalStorage"  (click)="saveAll()">Save</ion-button>
 </div>
