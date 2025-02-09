@@ -54,10 +54,31 @@ export class UserService {
         }))
     }
     
-    update(user: UserData): Observable<UserData>{
+    getLoginById(id: string): Observable<LoginOffice> {
+        return this.http.get<LoginOffice>(`${environment.fireBaseDBurl}/users/${id}/login.json`);
+    }
+    
+    getByPhone(phone: number): Observable<UserData | null> {
+        return this.http
+          .get<{ [key: number]: UserData }>(`${environment.fireBaseDBurl}/users.json`)
+          .pipe(
+            map((users) => {
+              if (!users) return null;
+      
+              // Шукаємо користувача з таким же номером телефону
+              const foundUser = Object.values(users).find(user => user.telephone === phone);
+              return foundUser || null;
+            })
+          );
+    }
+      
+    
+    updateUser(user: UserData): Observable<UserData>{
         return this.http.patch<UserData>(`${environment.fireBaseDBurl}/users/${user.id}.json`, user);
     }
-
+    updateLogin(user: LoginOffice): Observable<LoginOffice>{
+        return this.http.patch<LoginOffice>(`${environment.fireBaseDBurl}/users/${user.id}.json`, user);
+    }
 
     
     remove(id: string): Observable<void> {

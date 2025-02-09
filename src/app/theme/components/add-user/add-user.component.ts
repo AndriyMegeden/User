@@ -111,15 +111,20 @@ export class AddUserComponent implements OnInit {
     });
 
     // save invalid поки я не відправлю дані користувача
-    this.isDataInLocalStorage = JSON.parse(localStorage.getItem("isDataInLocalStorage") || "false");
-   
+    this.isDataInLocalStorage = JSON.parse(
+      localStorage.getItem("isDataInLocalStorage") || "false"
+    );
+
     this.formData.valueChanges.subscribe(() => {
-      if (this.formData.invalid) {
+      if (
+        this.formData.invalid ||
+        this.formLogin.invalid ||
+        this.formInternetSession.invalid
+      ) {
         this.isDataInLocalStorage = false;
         localStorage.setItem("isDataInLocalStorage", JSON.stringify(false));
       }
     });
-
 
     // форма підключення сесії
     this.formInternetSession = new FormGroup({
@@ -189,9 +194,10 @@ export class AddUserComponent implements OnInit {
       adress: this.formData.value.adress,
       textarea: this.formData.value.textarea,
     };
-    this.isDataInLocalStorage = true
+    this.isDataInLocalStorage = true;
     localStorage.setItem("isDataInLocalStorage", JSON.stringify(true));
     localStorage.setItem("userData", JSON.stringify(data)); // Зберігаємо всі дані
+    alert('Дані збережено');
   }
 
   submitLogin() {
@@ -205,6 +211,7 @@ export class AddUserComponent implements OnInit {
     };
 
     localStorage.setItem("userLogin", JSON.stringify(loginData)); // Зберігаємо логін у LocalStorage
+    alert('Дані збережено');
   }
 
   submitSession() {
@@ -222,13 +229,15 @@ export class AddUserComponent implements OnInit {
       ipType: this.formInternetSession.value.ipType,
     };
     localStorage.setItem("sessionData", JSON.stringify(SessionData)); // Зберігаємо дані сесії
+    alert('Дані збережено');
   }
   saveAll() {
+    this.isDataInLocalStorage = false
     const storedUserData = localStorage.getItem("userData");
     const storedLoginData = localStorage.getItem("userLogin");
     const storedSessionData = localStorage.getItem("sessionData");
-    const storedUserId = localStorage.getItem("userId");
-    if (!storedUserData || !storedLoginData || !storedSessionData ) {
+
+    if (!storedUserData && (!storedLoginData || !storedSessionData )) {
       return;
     }
 
@@ -236,79 +245,91 @@ export class AddUserComponent implements OnInit {
     const loginData: LoginOffice = JSON.parse(storedLoginData);
     const sessionData: SessionInterface = JSON.parse(storedSessionData);
 
-    // 1️⃣ Спочатку створюємо користувача
-    this.userService.createUser(userData).subscribe(
-      (newUser) => {
-        if (newUser && newUser.id) {
-          if (storedUserId === newUser.id) {
-            console.log("Такий користувач вже є");
-            return; // Виходимо з функції, не створюючи нового користувача
-          }
-          if (storedUserData === JSON.stringify(userData)) {
-            console.log("Такий користувач вже є");
-            return; // Вихід з функції, якщо користувач вже є в localStorage
-          }
-          
-          this.userId = newUser.id;
-          localStorage.setItem("userId", this.userId);
+    this.userService
+      .getByPhone(userData.telephone)
+      .subscribe((existingUser) => {
+        if (existingUser) {
+          console.log("Користувач існує", existingUser);
+          alert("Користувач існує");
+          // localStorage.removeItem("userData");
+          // localStorage.removeItem("userLogin");
+          // localStorage.removeItem("sessionData");
+          // this.formData.reset();
+          // this.formLogin.reset();
+          // this.formInternetSession.reset();
+          return;
+        } else {
+          // 1️⃣ Спочатку створюємо користувача
+          this.userService.createUser(userData).subscribe(
+            (newUser) => {
+              if (newUser && newUser.id) {
+                this.userId = newUser.id;
 
-          // 2️⃣ Додаємо логін до користувача
-          this.userService.createLogin(this.userId, loginData).subscribe(
-            () => {
-              // 3️⃣ Додаємо сесію до користувача
-              this.userService
-                .createSessionData(this.userId, sessionData)
-                .subscribe(
+                 // Видаляємо локальні дані
+                 localStorage.removeItem("userData");
+                 localStorage.removeItem("userLogin");
+                 localStorage.removeItem("sessionData");
+   
+                 // Скидаємо форми
+                 this.formData.reset();
+                 this.formLogin.reset();
+                 this.formInternetSession.reset();
+                
+                localStorage.setItem("userId", this.userId);
+                alert("Користувача створено");
+                
+                // 2️⃣ Додаємо логін до користувача
+                this.userService.createLogin(this.userId, loginData).subscribe(
                   () => {
-                    // Видаляємо локальні дані
-                    localStorage.removeItem("userData");
-                    localStorage.removeItem("userLogin");
-                    localStorage.removeItem("sessionData");
-
-                    // Скидаємо форми
-                    this.formData.reset();
-                    this.formLogin.reset();
-                    this.formInternetSession.reset();
+                    // 3️⃣ Додаємо сесію до користувача
+                    this.userService
+                      .createSessionData(this.userId, sessionData)
+                      .subscribe(
+                        (error) => {
+                          console.error("Помилка при збереженні сесії", error);
+          
+                        }
+                      );
                   },
                   (error) => {
-                    console.error("Помилка при збереженні сесії", error);
+                    console.error("Помилка при збереженні логіну", error);
+              
                   }
                 );
+              } else {
+                console.log("Помилка: ID користувача не отримано!");
+
+              }
             },
             (error) => {
-              console.error("Помилка при збереженні логіну", error);
+              console.error("Помилка при створенні користувача", error);
+         
             }
           );
-        } else {
-          console.log("Помилка: ID користувача не отримано!");
         }
-      },
-      (error) => {
-        console.error("Помилка при створенні користувача", error);
-      }
-    );
+      });
   }
 
   loadSavedData() {
     // Завантажуємо дані користувача, якщо є
     const savedUserData = localStorage.getItem("userData");
     if (savedUserData) {
-        const userData: UserData = JSON.parse(savedUserData);
-        this.formData.patchValue(userData);
+      const userData: UserData = JSON.parse(savedUserData);
+      this.formData.patchValue(userData);
     }
 
     // Завантажуємо логін, якщо є
     const savedLoginData = localStorage.getItem("userLogin");
     if (savedLoginData) {
-        const loginData: LoginOffice = JSON.parse(savedLoginData);
-        this.formLogin.patchValue(loginData);
+      const loginData: LoginOffice = JSON.parse(savedLoginData);
+      this.formLogin.patchValue(loginData);
     }
 
     // Завантажуємо дані сесії, якщо є
     const savedSessionData = localStorage.getItem("sessionData");
     if (savedSessionData) {
-        const sessionData: SessionInterface = JSON.parse(savedSessionData);
-        this.formInternetSession.patchValue(sessionData);
+      const sessionData: SessionInterface = JSON.parse(savedSessionData);
+      this.formInternetSession.patchValue(sessionData);
     }
-}
+  }
 }

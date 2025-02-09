@@ -27,6 +27,7 @@ export interface UserData {
 }
 
 export interface LoginOffice {
+  id?: string;
   login: string;
   password: string;
 }
