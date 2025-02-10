@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { FormControl, FormGroup } from "@angular/forms";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Params } from "@angular/router";
 import {
   LoginOffice,
@@ -40,19 +40,37 @@ export class EditUserComponent implements OnInit, OnDestroy {
       .subscribe((user: UserData) => {
         this.user = user;
         this.formData = new FormGroup({
-          name: new FormControl(user.name),
-          surname: new FormControl(user.surname),
-          telephone: new FormControl(user.telephone),
-          email: new FormControl(user.email),
-          adress: new FormControl(user.adress),
+          name: new FormControl(user.name, [
+            Validators.required,
+            Validators.minLength(3),
+          ]),
+          surname: new FormControl(user.surname, [
+            Validators.required,
+            Validators.minLength(3),
+          ]),
+          telephone: new FormControl(user.telephone, [
+            Validators.required,
+            Validators.pattern(/^\+?\d{10,10}$/), // Валідація для номера телефону
+          ]),
+          email: new FormControl(user.email, Validators.email),
+          adress: new FormControl(user.adress, [
+            Validators.required,
+            Validators.minLength(3),
+          ]),
           textarea: new FormControl(user.textarea),
         });
       });
 
     // форма логіна
     this.formLogin = new FormGroup({
-      login: new FormControl(""),
-      password: new FormControl(""),
+      login: new FormControl("", [
+        Validators.required,
+        Validators.minLength(3),
+      ]),
+      password: new FormControl("", [
+            Validators.required,
+            Validators.minLength(3),
+          ]),
     });
     this.route.params
       .pipe(
@@ -63,21 +81,45 @@ export class EditUserComponent implements OnInit, OnDestroy {
       .subscribe((login: LoginOffice) => {
         this.login = login;
         this.formLogin = new FormGroup({
-          login: new FormControl(login.login || ""),
-          password: new FormControl(login.password || ""),
+          login: new FormControl(login.login, [
+            Validators.required,
+            Validators.minLength(3),
+          ]),
+          password: new FormControl(login.password, [
+            Validators.required,
+            Validators.minLength(3),
+          ]),
         });
       });
 
     // форма сесії
     this.formInternetSession = new FormGroup({
       isActive: new FormControl(""),
-      balance: new FormControl(""),
-      credit: new FormControl(""),
-      macAdress: new FormControl(""),
-      vlan: new FormControl(""),
-      port: new FormControl(""),
-      tariff: new FormControl(""),
-      ipType: new FormControl(""),
+      balance: new FormControl("", [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.min(50),
+      ]),
+      credit: new FormControl("", [
+        Validators.minLength(2),
+        Validators.min(50),
+      ]),
+      macAdress: new FormControl("", [
+        Validators.required,
+        Validators.pattern(/^([0-9A-Za-z]{2}:){5}[0-9A-Za-z]{2}$/),
+      ]),
+      vlan: new FormControl("", [
+        Validators.required,
+        Validators.min(1),
+        Validators.maxLength(4),
+      ]),
+      port: new FormControl("", [
+        Validators.required,
+        Validators.min(1),
+        Validators.maxLength(3),
+      ]),
+      tariff: new FormControl("", [Validators.required]),
+      ipType: new FormControl("", [Validators.required]),
       // ipAddress: new FormControl(""),
     });
 
@@ -91,13 +133,31 @@ export class EditUserComponent implements OnInit, OnDestroy {
         this.session = session;
         this.formLogin = new FormGroup({
           isActive: new FormControl(session.isActive || ""),
-          balance: new FormControl(session.balance || ""),
-          credit: new FormControl(session.credit || ""),
-          macAdress: new FormControl(session.macAdress || ""),
-          vlan: new FormControl(session.vlan || ""),
-          port: new FormControl(session.port || ""),
-          tariff: new FormControl(session.tariff || ""),
-          ipType: new FormControl(session.ipType || ""),
+          balance: new FormControl(session.balance || "", [
+            Validators.required,
+            Validators.minLength(2),
+            Validators.min(50),
+          ]),
+          credit: new FormControl(session.credit || "", [
+            Validators.minLength(2),
+            Validators.min(50),
+          ]),
+          macAdress: new FormControl(session.macAdress || "", [
+            Validators.required,
+            Validators.pattern(/^([0-9A-Za-z]{2}:){5}[0-9A-Za-z]{2}$/),
+          ]),
+          vlan: new FormControl(session.vlan || "", [
+            Validators.required,
+            Validators.min(1),
+            Validators.maxLength(4),
+          ]),
+          port: new FormControl(session.port || "", [
+            Validators.required,
+            Validators.min(1),
+            Validators.maxLength(3),
+          ]),
+          tariff: new FormControl(session.tariff || "", [Validators.required]),
+          ipType: new FormControl(session.ipType || "", [Validators.required]),
           // ipAddress: new FormControl(session.ipAddress || ""),
         });
       });
@@ -118,7 +178,8 @@ export class EditUserComponent implements OnInit, OnDestroy {
     }
 
     this.submited = true;
-    this.sSub = this.userService.updateUser({
+    this.sSub = this.userService
+      .updateUser({
         ...this.user,
         name: this.formData.value.name,
         surname: this.formData.value.surname,
@@ -173,8 +234,8 @@ export class EditUserComponent implements OnInit, OnDestroy {
       },
     };
     this.sSub = this.userService.updateUser(updateUserSession).subscribe(() => {
-        this.submited = false;
-      });
+      this.submited = false;
+    });
   }
 
   ngOnDestroy(): void {

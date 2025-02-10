@@ -98,7 +98,7 @@ export class AddUserComponent implements OnInit {
       ]),
       textarea: new FormControl(null),
     });
-    // форма даних кабінета користувача
+    // форма login даних кабінета користувача
     this.formLogin = new FormGroup({
       login: new FormControl(null, [
         Validators.required,
