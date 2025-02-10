@@ -1,7 +1,11 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { ActivatedRoute, Params } from "@angular/router";
-import { LoginOffice, UserData } from "@interfaces/user.interface";
+import {
+  LoginOffice,
+  SessionInterface,
+  UserData,
+} from "@interfaces/user.interface";
 import { UserService } from "@services/general/user.service";
 import { Subscription, switchMap } from "rxjs";
 
@@ -13,8 +17,10 @@ import { Subscription, switchMap } from "rxjs";
 export class EditUserComponent implements OnInit, OnDestroy {
   public formData: FormGroup;
   public formLogin: FormGroup;
+  public formInternetSession: FormGroup;
   public user: UserData;
   public login: LoginOffice;
+  public session: SessionInterface;
   public sSub: Subscription;
   public submited: boolean = false;
   public passwordShow: boolean = false;
@@ -24,9 +30,12 @@ export class EditUserComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    // форма користувача
     this.route.params
       .pipe(
-        switchMap((params: Params) => this.userService.getById(params["id"]))
+        switchMap((params: Params) =>
+          this.userService.getUserById(params["id"])
+        )
       )
       .subscribe((user: UserData) => {
         this.user = user;
@@ -40,11 +49,11 @@ export class EditUserComponent implements OnInit, OnDestroy {
         });
       });
 
+    // форма логіна
     this.formLogin = new FormGroup({
       login: new FormControl(""),
       password: new FormControl(""),
     });
-
     this.route.params
       .pipe(
         switchMap((params: Params) =>
@@ -56,6 +65,40 @@ export class EditUserComponent implements OnInit, OnDestroy {
         this.formLogin = new FormGroup({
           login: new FormControl(login.login || ""),
           password: new FormControl(login.password || ""),
+        });
+      });
+
+    // форма сесії
+    this.formInternetSession = new FormGroup({
+      isActive: new FormControl(""),
+      balance: new FormControl(""),
+      credit: new FormControl(""),
+      macAdress: new FormControl(""),
+      vlan: new FormControl(""),
+      port: new FormControl(""),
+      tariff: new FormControl(""),
+      ipType: new FormControl(""),
+      // ipAddress: new FormControl(""),
+    });
+
+    this.route.params
+      .pipe(
+        switchMap((params: Params) =>
+          this.userService.getSessionById(params["id"])
+        )
+      )
+      .subscribe((session: SessionInterface) => {
+        this.session = session;
+        this.formLogin = new FormGroup({
+          isActive: new FormControl(session.isActive || ""),
+          balance: new FormControl(session.balance || ""),
+          credit: new FormControl(session.credit || ""),
+          macAdress: new FormControl(session.macAdress || ""),
+          vlan: new FormControl(session.vlan || ""),
+          port: new FormControl(session.port || ""),
+          tariff: new FormControl(session.tariff || ""),
+          ipType: new FormControl(session.ipType || ""),
+          // ipAddress: new FormControl(session.ipAddress || ""),
         });
       });
   }
@@ -75,8 +118,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
     }
 
     this.submited = true;
-    this.sSub = this.userService
-      .updateUser({
+    this.sSub = this.userService.updateUser({
         ...this.user,
         name: this.formData.value.name,
         surname: this.formData.value.surname,
@@ -94,12 +136,45 @@ export class EditUserComponent implements OnInit, OnDestroy {
     if (this.formLogin.invalid) {
       return;
     }
+
     this.submited = true;
-    this.userService.updateLogin({
-      ...this.login,
-      login: this.formLogin.value.login,
-      password: this.formLogin.value.password,
+
+    const updatedUserLogin = {
+      ...this.user,
+      login: {
+        login: this.formLogin.value.login,
+        password: this.formLogin.value.password,
+      },
+    };
+
+    this.sSub = this.userService.updateUser(updatedUserLogin).subscribe(() => {
+      this.submited = false;
     });
+  }
+
+  submitSession() {
+    if (this.formInternetSession.invalid) {
+      return;
+    }
+    this.submited = true;
+
+    const updateUserSession = {
+      ...this.user,
+      session: {
+        isActive: this.formInternetSession.value.isActive,
+        balance: this.formInternetSession.value.balance,
+        credit: this.formInternetSession.value.credit,
+        macAdress: this.formInternetSession.value.macAdress,
+        vlan: this.formInternetSession.value.vlan,
+        port: this.formInternetSession.value.port,
+        tariff: this.formInternetSession.value.tariff,
+        ipType: this.formInternetSession.value.ipType,
+        // ipAddress: this.formInternetSession.value.ipAddress,
+      },
+    };
+    this.sSub = this.userService.updateUser(updateUserSession).subscribe(() => {
+        this.submited = false;
+      });
   }
 
   ngOnDestroy(): void {

@@ -25,7 +25,7 @@ export class UserService {
     }
     
     createSessionData(userId: string, session: SessionInterface): Observable<SessionInterface> {
-        return this.http.put<SessionInterface>(`${environment.fireBaseDBurl}/users/${userId}/sessions.json`, session);
+        return this.http.put<SessionInterface>(`${environment.fireBaseDBurl}/users/${userId}/session.json`, session);
     }
     
 
@@ -44,7 +44,7 @@ export class UserService {
         }))
     }
 
-    getById(id: string): Observable<UserData>{
+    getUserById(id: string): Observable<UserData>{
         return this.http.get<UserData>(`${environment.fireBaseDBurl}/users/${id}.json`)
         .pipe(map((user: UserData) => {
             return {
@@ -56,6 +56,10 @@ export class UserService {
     
     getLoginById(id: string): Observable<LoginOffice> {
         return this.http.get<LoginOffice>(`${environment.fireBaseDBurl}/users/${id}/login.json`);
+    }
+
+    getSessionById(id: string): Observable<SessionInterface> {
+        return this.http.get<SessionInterface>(`${environment.fireBaseDBurl}/users/${id}/session.json`);
     }
     
     getByPhone(phone: number): Observable<UserData | null> {
@@ -75,9 +79,6 @@ export class UserService {
     
     updateUser(user: UserData): Observable<UserData>{
         return this.http.patch<UserData>(`${environment.fireBaseDBurl}/users/${user.id}.json`, user);
-    }
-    updateLogin(user: LoginOffice): Observable<LoginOffice>{
-        return this.http.patch<LoginOffice>(`${environment.fireBaseDBurl}/users/${user.id}.json`, user);
     }
 
     

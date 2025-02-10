@@ -26,6 +26,7 @@ export interface UserData {
   textarea?: string;
 }
 
+
 export interface LoginOffice {
   id?: string;
   login: string;
@@ -44,6 +45,7 @@ export enum IpType {
 }
 
 export interface SessionInterface {
+  id?: string;
   isActive: boolean;
   balance: number;
   credit?: number;
