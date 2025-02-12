@@ -131,33 +131,33 @@ export class EditUserComponent implements OnInit, OnDestroy {
       )
       .subscribe((session: SessionInterface) => {
         this.session = session;
-        this.formLogin = new FormGroup({
-          isActive: new FormControl(session.isActive || ""),
-          balance: new FormControl(session.balance || "", [
+        this.formInternetSession = new FormGroup({
+          isActive: new FormControl(session.isActive),
+          balance: new FormControl(session.balance, [
             Validators.required,
             Validators.minLength(2),
             Validators.min(50),
           ]),
-          credit: new FormControl(session.credit || "", [
+          credit: new FormControl(session.credit, [
             Validators.minLength(2),
             Validators.min(50),
           ]),
-          macAdress: new FormControl(session.macAdress || "", [
+          macAdress: new FormControl(session.macAdress, [
             Validators.required,
             Validators.pattern(/^([0-9A-Za-z]{2}:){5}[0-9A-Za-z]{2}$/),
           ]),
-          vlan: new FormControl(session.vlan || "", [
+          vlan: new FormControl(session.vlan, [
             Validators.required,
             Validators.min(1),
             Validators.maxLength(4),
           ]),
-          port: new FormControl(session.port || "", [
+          port: new FormControl(session.port, [
             Validators.required,
             Validators.min(1),
             Validators.maxLength(3),
           ]),
-          tariff: new FormControl(session.tariff || "", [Validators.required]),
-          ipType: new FormControl(session.ipType || "", [Validators.required]),
+          tariff: new FormControl(session.tariff, [Validators.required]),
+          ipType: new FormControl(session.ipType, [Validators.required]),
           // ipAddress: new FormControl(session.ipAddress || ""),
         });
       });

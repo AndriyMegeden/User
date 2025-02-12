@@ -26,56 +26,59 @@ export class AddUserComponent implements OnInit {
   constructor(private userService: UserService) {}
 
   // запустити таймер
-  startTimer() {
-    if (this.timer) {
-      return;
-    }
+  // startTimer() {
+  //   if (this.timer) {
+  //     return;
+  //   }
 
-    let seconds = 0;
-    let minutes = 0;
-    let hours = 0;
-    let days = 0;
+  //   let seconds = 0;
+  //   let minutes = 0;
+  //   let hours = 0;
+  //   let days = 0;
 
-    // Запуск інтервалу, що буде оновлювати час кожну секунду
-    this.timer = setInterval(() => {
-      seconds++;
+  //   // Запуск інтервалу, що буде оновлювати час кожну секунду
+  //   this.timer = setInterval(() => {
+  //     seconds++;
 
-      if (seconds === 60) {
-        seconds = 0;
-        minutes++;
+  //     if (seconds === 60) {
+  //       seconds = 0;
+  //       minutes++;
 
-        if (minutes === 60) {
-          minutes = 0;
-          hours++;
+  //       if (minutes === 60) {
+  //         minutes = 0;
+  //         hours++;
 
-          if (hours === 24) {
-            hours = 0;
-            days++;
-          }
-        }
-      }
+  //         if (hours === 24) {
+  //           hours = 0;
+  //           days++;
+  //         }
+  //       }
+  //     }
 
-      // Форматуємо час у вигляді 00:00:00
-      this.time = `${this.pad(days)}:${this.pad(hours)}:${this.pad(
-        minutes
-      )}:${this.pad(seconds)}`;
-    }, 1000);
-  }
+  //     // Форматуємо час у вигляді 00:00:00
+  //     this.time = `${this.pad(days)}:${this.pad(hours)}:${this.pad(
+  //       minutes
+  //     )}:${this.pad(seconds)}`;
+  //   }, 1000);
+  // }
+
   // зупинити таймер
-  stopTimer() {
-    if (this.timer) {
-      clearInterval(this.timer); // Зупинка таймера
-      this.timer = null; // Очистка змінної таймера
-      this.time = "00:00:00:00"; // Обнулити відображуваний час
-      console.log("Таймер зупинено");
-    }
-  }
+  // stopTimer() {
+  //   if (this.timer) {
+  //     clearInterval(this.timer); // Зупинка таймера
+  //     this.timer = null; // Очистка змінної таймера
+  //     this.time = "00:00:00:00"; // Обнулити відображуваний час
+  //     console.log("Таймер зупинено");
+  //   }
+  // }
+
 
   // Функція для додавання нуля перед одиничними цифрами
   private pad(number: number): string {
     return number < 10 ? "0" + number : number.toString();
   }
 
+  
   ngOnInit() {
     // форма створення абонента
     this.formData = new FormGroup({
@@ -162,9 +165,9 @@ export class AddUserComponent implements OnInit {
         this.formInternetSession.valid &&
         this.formInternetSession.get("isActive")?.value
       ) {
-        this.startTimer();
+        // this.startTimer();
       } else {
-        this.stopTimer(); // Зупинка таймера, якщо форма не активна
+        // this.stopTimer(); // Зупинка таймера, якщо форма не активна
       }
     });
 
@@ -231,84 +234,174 @@ export class AddUserComponent implements OnInit {
     localStorage.setItem("sessionData", JSON.stringify(SessionData)); // Зберігаємо дані сесії
     alert('Дані збережено');
   }
+
+
+  // saveAll() {
+  //   this.isDataInLocalStorage = false;
+  //   const storedUserData = localStorage.getItem("userData");
+  //   const storedLoginData = localStorage.getItem("userLogin");
+  //   const storedSessionData = localStorage.getItem("sessionData");
+  
+  //   // if (!storedUserData || !storedLoginData || !storedSessionData) {
+  //   //   console.warn("Не всі дані доступні в LocalStorage.");
+  //   //   return;
+  //   // }
+  
+  //   const userData: UserData = JSON.parse(storedUserData);
+  //   const loginData: LoginOffice = JSON.parse(storedLoginData);
+  //   const sessionData: SessionInterface = JSON.parse(storedSessionData);
+  
+  //   this.userService.getByPhone(userData.telephone).subscribe(
+  //     (existingUser) => {
+  //       if (existingUser) {
+  //         console.log("Користувач вже існує:", existingUser);
+  //         alert("Користувач з таким номером вже існує");
+  //         return;
+  //       }
+  
+  //       // Створюємо користувача
+  //       this.userService.createUser(userData).subscribe(
+  //         (newUser) => {
+  //           if (!newUser || !newUser.id) {
+  //             console.error("Помилка: ID користувача не отримано!");
+  //             alert("Помилка при створенні користувача!");
+  //             return;
+  //           }
+  
+  //           this.userId = newUser.id;
+  //           localStorage.setItem("userId", this.userId);
+  //           alert("Користувача створено");
+  
+  //           // Додаємо логін до користувача
+  //           this.userService.createLogin(this.userId, loginData).subscribe(
+  //             () => {
+  //               // Додаємо сесію до користувача
+  //               this.userService.createSessionData(this.userId, sessionData).subscribe(
+  //                 () => {
+  //                   alert("Сесію успішно створено");
+  //                 },
+  //                 (error) => {
+  //                   console.error("Помилка при збереженні сесії:", error);
+  //                   alert("Не вдалося створити сесію! Перевірте дані.");
+  //                 }
+  //               );
+  //             },
+  //             (error) => {
+  //               console.error("Помилка при збереженні логіну:", error);
+  //               alert("Не вдалося створити логін! Перевірте дані.");
+  //             }
+  //           );
+  //         },
+  //         (error) => {
+  //           console.error("Помилка при створенні користувача:", error);
+  //           alert("Не вдалося створити користувача! Перевірте введені дані.");
+  //         }
+  //       );
+  //     },
+  //     (error) => {
+  //       console.error("Помилка при перевірці існуючого користувача:", error);
+  //       alert("Помилка під час перевірки користувача!");
+  //     }
+       
+  //   );
+  //     // Видаляємо локальні дані
+  //     localStorage.removeItem("userData");
+  //     localStorage.removeItem("userLogin");
+  //     localStorage.removeItem("sessionData");
+
+  //     //  // Скидаємо форми
+  //     this.formData.reset();
+  //     this.formLogin.reset();
+  //     this.formInternetSession.reset();
+  // }
+
   saveAll() {
-    this.isDataInLocalStorage = false
+    this.isDataInLocalStorage = false;
     const storedUserData = localStorage.getItem("userData");
     const storedLoginData = localStorage.getItem("userLogin");
     const storedSessionData = localStorage.getItem("sessionData");
-
-    if (!storedUserData && (!storedLoginData || !storedSessionData )) {
+  
+    // Перевіряємо, чи є хоча б userData, бо без нього немає сенсу створювати логін або сесію
+    if (!storedUserData) {
+      console.warn("Немає основних даних користувача в LocalStorage.");
       return;
     }
-
+  
     const userData: UserData = JSON.parse(storedUserData);
-    const loginData: LoginOffice = JSON.parse(storedLoginData);
-    const sessionData: SessionInterface = JSON.parse(storedSessionData);
-
-    this.userService
-      .getByPhone(userData.telephone)
-      .subscribe((existingUser) => {
+    const loginData: LoginOffice | null = storedLoginData ? JSON.parse(storedLoginData) : null;
+    const sessionData: SessionInterface | null = storedSessionData ? JSON.parse(storedSessionData) : null;
+  
+    this.userService.getByPhone(userData.telephone).subscribe(
+      (existingUser) => {
         if (existingUser) {
-          console.log("Користувач існує", existingUser);
-          alert("Користувач існує");
-          // localStorage.removeItem("userData");
-          // localStorage.removeItem("userLogin");
-          // localStorage.removeItem("sessionData");
-          // this.formData.reset();
-          // this.formLogin.reset();
-          // this.formInternetSession.reset();
+          console.log("Користувач вже існує:", existingUser);
+          alert("Користувач з таким номером вже існує");
           return;
-        } else {
-          // 1️⃣ Спочатку створюємо користувача
-          this.userService.createUser(userData).subscribe(
-            (newUser) => {
-              if (newUser && newUser.id) {
-                this.userId = newUser.id;
-
-                 // Видаляємо локальні дані
-                 localStorage.removeItem("userData");
-                 localStorage.removeItem("userLogin");
-                 localStorage.removeItem("sessionData");
-   
-                 // Скидаємо форми
-                 this.formData.reset();
-                 this.formLogin.reset();
-                 this.formInternetSession.reset();
-                
-                localStorage.setItem("userId", this.userId);
-                alert("Користувача створено");
-                
-                // 2️⃣ Додаємо логін до користувача
-                this.userService.createLogin(this.userId, loginData).subscribe(
-                  () => {
-                    // 3️⃣ Додаємо сесію до користувача
-                    this.userService
-                      .createSessionData(this.userId, sessionData)
-                      .subscribe(
-                        (error) => {
-                          console.error("Помилка при збереженні сесії", error);
-          
-                        }
-                      );
-                  },
-                  (error) => {
-                    console.error("Помилка при збереженні логіну", error);
-              
-                  }
-                );
-              } else {
-                console.log("Помилка: ID користувача не отримано!");
-
-              }
-            },
-            (error) => {
-              console.error("Помилка при створенні користувача", error);
-         
-            }
-          );
         }
-      });
+  
+        // Створюємо користувача
+        this.userService.createUser(userData).subscribe(
+          (newUser) => {
+            if (!newUser || !newUser.id) {
+              console.error("Помилка: ID користувача не отримано!");
+              alert("Помилка при створенні користувача!");
+              return;
+            }
+  
+            this.userId = newUser.id;
+            localStorage.setItem("userId", this.userId);
+            alert("Користувача створено");
+  
+            // Якщо є логін, створюємо логін
+            if (loginData) {
+              this.userService.createLogin(this.userId, loginData).subscribe(
+                () => {
+                  alert("Логін успішно створено");
+                },
+                (error) => {
+                  console.error("Помилка при збереженні логіну:", error);
+                  alert("Не вдалося створити логін! Перевірте дані.");
+                }
+              );
+            }
+  
+            // Якщо є сесія, створюємо сесію (незалежно від логіну)
+            if (sessionData) {
+              this.userService.createSessionData(this.userId, sessionData).subscribe(
+                () => {
+                  alert("Сесію успішно створено");
+                },
+                (error) => {
+                  console.error("Помилка при збереженні сесії:", error);
+                  alert("Не вдалося створити сесію! Перевірте дані.");
+                }
+              );
+            }
+          },
+          (error) => {
+            console.error("Помилка при створенні користувача:", error);
+            alert("Не вдалося створити користувача! Перевірте введені дані.");
+          }
+        );
+      },
+      (error) => {
+        console.error("Помилка при перевірці існуючого користувача:", error);
+        alert("Помилка під час перевірки користувача!");
+      }
+    );
+  
+    // Видаляємо локальні дані
+    localStorage.removeItem("userData");
+    localStorage.removeItem("userLogin");
+    localStorage.removeItem("sessionData");
+  
+    // Скидаємо форми
+    this.formData.reset();
+    this.formLogin.reset();
+    this.formInternetSession.reset();
   }
+  
+
 
   loadSavedData() {
     // Завантажуємо дані користувача, якщо є
