@@ -7,10 +7,10 @@
             <div class="title m-b-10 d-flex justify-center">
               <span>Internet connection</span>
             </div>
-            <!-- <div style="color: black;" class="connection-time m-tb-20 d-flex justify-center">
+            <div style="color: black;" class="connection-time m-tb-20 d-flex justify-center">
               <span class="title m-r-10">Time Connection: </span>
                 <div>{{ time }}</div> 
-            </div> -->
+            </div>
             <div class="active d-flex justify-center m-b-20">
               <ion-radio-group
                 formControlName="isActive"
@@ -84,12 +84,12 @@
               </div>
             </div>
 
-            <!-- <div class="session-active d-flex align-center p-lr-10" *ngIf="formInternetSession.valid && formInternetSession.get('isActive')?.value">
+            <div class="session-active d-flex align-center p-lr-10 m-b-20" *ngIf="formInternetSession.valid && formInternetSession.get('isActive')?.value">
               <span>Session Active ✅</span>
             </div>
-            <div class="session-active pause d-flex align-center p-lr-10" *ngIf="formInternetSession.valid && !formInternetSession.get('isActive')?.value">
+            <div class="session-active pause d-flex align-center p-lr-10 m-b-20" *ngIf="formInternetSession.valid && !formInternetSession.get('isActive')?.value">
               <span>The session is stopped ❌</span>
-            </div> -->
+            </div>
           </div>
           <div class="options">
             <div class="title m-b-10 d-flex justify-center">
@@ -182,7 +182,7 @@
               type="submit"
               [disabled]="formInternetSession.invalid"
               class="general"
-              >Connect</ion-button
+              >Save</ion-button
             >
           </div>
         </form>
@@ -249,7 +249,7 @@
               class="general"
               type="submit"
               [disabled]="formLogin.invalid"
-              >Submit</ion-button
+              >Save</ion-button
             >
           </div>
         </form>
@@ -386,7 +386,7 @@
               class="general"
               type="submit"
               [disabled]="formData.invalid"
-              >Submit</ion-button
+              >Save</ion-button
             >
           </ion-list>
         </form>

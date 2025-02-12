@@ -7,10 +7,6 @@
           <div class="title m-b-10 d-flex justify-center">
             <span>Internet connection</span>
           </div>
-          <!-- <div style="color: black;" class="connection-time m-tb-20 d-flex justify-center">
-            <span class="title m-r-10">Time Connection: </span>
-              <div>{{ time }}</div> 
-          </div> -->
           <div class="active d-flex justify-center m-b-20">
             <ion-radio-group formControlName="isActive" class="d-flex align-center" value="custom-checked">
               <span class="radio-text m-r-10">Active</span>
@@ -43,15 +39,6 @@
               </div>
             </div>
           </div>
-
-          <!-- <div class="session-active d-flex align-center p-lr-10" *ngIf="formInternetSession.valid && formInternetSession.get('isActive')?.value">
-            <span>Session Active ✅</span>
-          </div>
-          <div class="session-active pause d-flex align-center p-lr-10" *ngIf="formInternetSession.valid && !formInternetSession.get('isActive')?.value">
-            <span>The session is stopped ❌</span>
-          </div> -->
-
-
         </div>
         <div class="options">
           <div class="title m-b-10 d-flex justify-center">
@@ -106,7 +93,7 @@
               <ion-input formControlName="port" maxlength="3"  (keydown)="onPhoneInput($event)" label="Port"></ion-input>
             </ion-item>
           </div>
-          <ion-button type="submit" [disabled]="formInternetSession.invalid" class="general">Connect</ion-button>
+          <ion-button type="submit" [disabled]="formInternetSession.invalid" class="general">Save</ion-button>
         </div>
       </form>
     </div>
@@ -139,7 +126,7 @@
               <span *ngIf="formLogin.get('password')?.errors?.['minlength']">Мінімальна кількість символів 3</span>
             </div>
           </ion-list>
-          <ion-button class="general" type="submit" [disabled]="formLogin.invalid">Submit</ion-button>
+          <ion-button class="general" type="submit" [disabled]="formLogin.invalid">Save</ion-button>
         </div>
       </form>
     </div>
@@ -209,11 +196,11 @@
               </ion-textarea>
     
             </div>
-            <ion-button class="general" type="submit" [disabled]="formData.invalid">Submit</ion-button>
+            <ion-button class="general" type="submit" [disabled]="formData.invalid">Save</ion-button>
           </ion-list>
         </form>
       </div>    
     </div>
   
-  <ion-button class="general m-b-24" type="submit" [disabled]="!isDataInLocalStorage"  (click)="saveAll()">Save</ion-button>
+  <ion-button class="general m-b-24" type="submit" [disabled]="!isDataInLocalStorage"  (click)="saveAll()">Create</ion-button>
 </div>
