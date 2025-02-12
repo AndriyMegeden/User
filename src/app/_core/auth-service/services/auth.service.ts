@@ -239,6 +239,8 @@ export class AuthService {
     return !!this.token;
   }
 
+  
+
   // для зміни токена.Токен д одається до всіх запросів
   private setToken(response: any | null) {
     console.log(response)

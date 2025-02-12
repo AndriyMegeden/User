@@ -29,6 +29,7 @@ export class AuthComponent implements OnInit {
   public isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
   public passwordShow: boolean = false;
   public passwordMatch: boolean = false;
+  public remember: boolean = false;
   public submitted: boolean = false;
   public resetEmail: string = "";
   public resetId: string = "";
@@ -73,32 +74,53 @@ export class AuthComponent implements OnInit {
   }
 
   createForm() {
-    const formControlsConfig = {};
+    const formControlsConfig = {
+      remember: new FormControl(false), // Додаємо "запам'ятати мене"
+    };
     this.currentMode.fields.forEach((field) => {
       formControlsConfig[field.fieldId] = new FormControl(
         field.value,
         field.validators
       );
     });
-
+  
     this.form = new FormGroup(formControlsConfig);
   }
+  
 
   login(route: string) {
     if (this.form.invalid) {
       return;
     }
-    this.submitted = true
+    this.submitted = true;
 
     const user: User = {
       email: this.form.value.email,
       password: this.form.value.password,
     };
-    this.authService.login(user).subscribe((res) => {
+    this.authService.login(user).subscribe((response: any) => {
+      const token = localStorage.getItem("fb-token-exp");
+      // Продовжуємо токен на 24 години
+      if (this.form.value.remember && token) {
+        const tokenExpiryDate = new Date(token);
+        tokenExpiryDate.setHours(tokenExpiryDate.getHours() + 24);
+        const newFormattedDate = tokenExpiryDate.toString();
+        localStorage.setItem("fb-token-exp", newFormattedDate);
+        console.log(newFormattedDate);
+      }
+
+      console.log(response);
+      const userEmail = response.email;
+      this.authService.fetchUsername(userEmail);
       this.form.reset();
+      this.submitted = false;
       this.router.navigateByUrl(route);
-      this.submitted = false
     });
+  }
+
+  rememberMe() {
+    this.remember = !this.remember;
+    console.log(this.remember);
   }
 
   getError() {

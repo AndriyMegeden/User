@@ -67,6 +67,21 @@
         </div>
       </div>
 
+      <!-- запамятати мене -->
+      <div class="remember-me d-flex justify-center">
+        <div class="checkbox d-flex align-center m-b-20">
+          <input
+            formControlName="remember"
+            type="checkbox"
+            class="custom-checkbox m-r-10"
+            id="happy"
+            name="happy"
+            value="yes"
+          />
+          <label (click)="rememberMe()" class="link" for="happy">Remember for 24 hours</label>
+        </div>
+      </div>
+
       <!-- Кнопка для перенаправлення -->
       <div class="sign-up-button d-flex justify-center m-b-20">
         <ion-button
