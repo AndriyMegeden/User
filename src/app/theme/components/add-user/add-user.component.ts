@@ -335,7 +335,6 @@ export class AddUserComponent implements OnInit {
       (existingUser) => {
         if (existingUser) {
           console.log("Користувач вже існує:", existingUser);
-          alert("Користувач з таким номером вже існує");
           return;
         }
   
@@ -355,12 +354,8 @@ export class AddUserComponent implements OnInit {
             // Якщо є логін, створюємо логін
             if (loginData) {
               this.userService.createLogin(this.userId, loginData).subscribe(
-                () => {
-                  alert("Логін успішно створено");
-                },
                 (error) => {
                   console.error("Помилка при збереженні логіну:", error);
-                  alert("Не вдалося створити логін! Перевірте дані.");
                 }
               );
             }
@@ -368,25 +363,19 @@ export class AddUserComponent implements OnInit {
             // Якщо є сесія, створюємо сесію (незалежно від логіну)
             if (sessionData) {
               this.userService.createSessionData(this.userId, sessionData).subscribe(
-                () => {
-                  alert("Сесію успішно створено");
-                },
                 (error) => {
                   console.error("Помилка при збереженні сесії:", error);
-                  alert("Не вдалося створити сесію! Перевірте дані.");
                 }
               );
             }
           },
           (error) => {
             console.error("Помилка при створенні користувача:", error);
-            alert("Не вдалося створити користувача! Перевірте введені дані.");
           }
         );
       },
       (error) => {
         console.error("Помилка при перевірці існуючого користувача:", error);
-        alert("Помилка під час перевірки користувача!");
       }
     );
   
