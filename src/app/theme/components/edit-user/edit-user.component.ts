@@ -6,6 +6,7 @@ import {
   SessionInterface,
   UserData,
 } from "@interfaces/user.interface";
+import { ToastController } from "@ionic/angular";
 import { UserService } from "@services/general/user.service";
 import { Subscription, switchMap } from "rxjs";
 
@@ -21,13 +22,14 @@ export class EditUserComponent implements OnInit, OnDestroy {
   public user: UserData;
   public login: LoginOffice;
   public session: SessionInterface;
+  public lastSubmitTime = 0;
   public sSub: Subscription;
-  public timer: any = null;
   public submited: boolean = false;
   public passwordShow: boolean = false;
   constructor(
     private route: ActivatedRoute,
-    private userService: UserService
+    private userService: UserService,
+    private toastController: ToastController
   ) {}
 
   ngOnInit() {
@@ -174,6 +176,15 @@ export class EditUserComponent implements OnInit, OnDestroy {
     }
   }
   submitData() {
+    const now = Date.now();
+  
+    // Перевіряємо, чи минуло 15 секунд з останнього виклику
+    if (now - this.lastSubmitTime < 15000) {
+      this.presentToast("Будь ласка, зачекайте 15 секунд перед наступним оновленням", "top");
+      return;
+    }
+
+
     if (this.formData.invalid) {
       return;
     }
@@ -192,9 +203,19 @@ export class EditUserComponent implements OnInit, OnDestroy {
       .subscribe(() => {
         this.submited = false;
       });
+      this.presentToast("Дані Оновлено", "top");
+      this.lastSubmitTime = Date.now();
   }
 
   submitLogin() {
+    const now = Date.now();
+    // Перевіряємо, чи минуло 15 секунд з останнього виклику
+    if (now - this.lastSubmitTime < 15000) {
+      this.presentToast("Будь ласка, зачекайте 15 секунд перед наступним оновленням", "top");
+      return;
+    }
+
+
     if (this.formLogin.invalid) {
       return;
     }
@@ -212,9 +233,17 @@ export class EditUserComponent implements OnInit, OnDestroy {
     this.sSub = this.userService.updateUser(updatedUserLogin).subscribe(() => {
       this.submited = false;
     });
+    this.presentToast("Дані Оновлено", "top");
+    this.lastSubmitTime = Date.now();
   }
 
   submitSession() {
+    const now = Date.now();
+    // Перевіряємо, чи минуло 15 секунд з останнього виклику
+    if (now - this.lastSubmitTime < 15000) {
+      this.presentToast("Будь ласка, зачекайте 15 секунд перед наступним оновленням", "top");
+      return;
+    }
     if (this.formInternetSession.invalid) {
       return;
     }
@@ -237,6 +266,27 @@ export class EditUserComponent implements OnInit, OnDestroy {
     this.sSub = this.userService.updateUser(updateUserSession).subscribe(() => {
       this.submited = false;
     });
+    this.presentToast("Дані Оновлено", "top");
+    this.lastSubmitTime = Date.now();
+  }
+
+  async presentToast(message: string, position: "top" | "middle" | "bottom") {
+    const color =
+      message === "Користувача Створено" || message === "Дані Оновлено"
+        ? "success-toast"
+        : "error-toast";
+
+    console.log("Toast message:", message);
+    console.log("Assigned color class:", color);
+
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000,
+      position: position,
+      cssClass: color,
+    });
+
+    await toast.present();
   }
 
   ngOnDestroy(): void {

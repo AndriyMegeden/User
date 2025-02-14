@@ -21,16 +21,16 @@
           <!-- пара -->
           <div class="connect-vlan d-flex couple justify-space-between">
             <div class="balance m-b-20 m-r-20 d-flex flex-d-col w-50">
-              <ion-item class="m-b-20">
+              <ion-item [class.invalid]="formInternetSession.get('balance')?.invalid && formInternetSession.get('balance')?.touched" class="m-b-20">
                 <ion-input (keydown)="onPhoneInput($event)" formControlName="balance" label="Balance"></ion-input>
               </ion-item>
-              <div class="validator m-b-20" *ngIf="formInternetSession.get('balance')?.invalid && formInternetSession.get('balance')?.touched">
+              <div class="validator m-b-20"  *ngIf="formInternetSession.get('balance')?.invalid && formInternetSession.get('balance')?.touched">
                 <span *ngIf="formInternetSession.get('balance')?.errors?.['required']">Це поле обов'язкове</span>
                 <span *ngIf="formInternetSession.get('balance')?.errors?.['min']">Сума не повинна бути менше за 50</span>
               </div>
             </div>
             <div class="credit m-b-20 d-flex flex-d-col w-50">
-              <ion-item class="m-b-20">
+              <ion-item [class.invalid]="formInternetSession.get('credit')?.invalid && formInternetSession.get('credit')?.touched" class="m-b-20">
                 <ion-input (keydown)="onPhoneInput($event)" formControlName="credit" label="Credit"></ion-input>
               </ion-item>
               <div class="validator m-b-20" *ngIf="formInternetSession.get('credit')?.invalid && formInternetSession.get('credit')?.touched">
@@ -78,7 +78,7 @@
               </ion-list>
             </div>
           </div>
-          <ion-item class="m-b-20">
+          <ion-item [class.invalid]="formInternetSession.get('macAdress')?.invalid && formInternetSession.get('macAdress')?.touched" class="m-b-20">
             <ion-input formControlName="macAdress" label="Mac Adress"></ion-input>
           </ion-item>
           <div class="validator m-b-20" *ngIf="formInternetSession.get('macAdress')?.invalid && formInternetSession.get('macAdress')?.touched">
@@ -86,10 +86,10 @@
             <span *ngIf="formInternetSession.get('macAdress')?.errors?.['pattern']">Правильний формат XX:XX:XX:XX:XX:XX</span>
           </div>
           <div class="connect-vlan d-flex">
-            <ion-item class="m-b-20 m-r-20">
+            <ion-item [class.invalid]="formInternetSession.get('vlan')?.invalid && formInternetSession.get('vlan')?.touched" class="m-b-20 m-r-20">
               <ion-input maxlength="4"  (keydown)="onPhoneInput($event)" formControlName="vlan" label="Vlan"></ion-input>
             </ion-item>
-            <ion-item class="m-b-20">
+            <ion-item [class.invalid]="formInternetSession.get('port')?.invalid && formInternetSession.get('port')?.touched" class="m-b-20">
               <ion-input formControlName="port" maxlength="3"  (keydown)="onPhoneInput($event)" label="Port"></ion-input>
             </ion-item>
           </div>
@@ -106,14 +106,14 @@
             <span>Login Form</span>
           </div>
           <ion-list class="p-0">
-            <ion-item class="m-b-20">
+            <ion-item [class.invalid]="formLogin.get('login')?.invalid && formLogin.get('login')?.touched" class="m-b-20">
               <ion-input formControlName="login" label="Login"></ion-input>
             </ion-item>
             <div class="validator m-b-20" *ngIf="formLogin.get('login')?.invalid && formLogin.get('login')?.touched">
               <span *ngIf="formLogin.get('login')?.errors?.['required']">Це поле обов'язкове</span>
               <span *ngIf="formLogin.get('login')?.errors?.['minlength']">Мінімальна кількість символів 3</span>
             </div>
-            <ion-item class="m-b-20">
+            <ion-item [class.invalid]="formLogin.get('password')?.invalid && formLogin.get('password')?.touched" class="m-b-20">
               <ion-input formControlName="password" label="Password" [type]="passwordShow ? 'text' : 'password'"></ion-input>
               <ion-icon
               class="p-r-16"
@@ -139,7 +139,7 @@
               <!-- пара -->
               <div class="about d-flex justify-space-between couple">
                 <div class="input-name m-b-20 m-r-20 d-flex flex-d-col w-50">
-                  <ion-item>
+                  <ion-item [class.invalid]="formData.get('name')?.invalid && formData.get('name')?.touched">
                     <ion-input formControlName="name" label="Name"></ion-input>
                   </ion-item>
                   <div class="validator m-t-20" *ngIf="formData.get('name')?.invalid && formData.get('name')?.touched">
@@ -148,7 +148,7 @@
                   </div>
                 </div>
                 <div class="input-surname m-b-20 w-50">
-                  <ion-item>
+                  <ion-item [class.invalid]="formData.get('surname')?.invalid && formData.get('surname')?.touched">
                     <ion-input formControlName="surname" label="Surname"></ion-input>
                   </ion-item>
                   <div class="validator  m-t-20" *ngIf="formData.get('surname')?.invalid && formData.get('surname')?.touched">
@@ -158,7 +158,7 @@
                 </div>
                
               </div>
-              <ion-item class="m-b-20">
+              <ion-item [class.invalid]="formData.get('telephone')?.invalid && formData.get('telephone')?.touched" class="m-b-20">
                 <ion-input  id="telephone" (keydown)="onPhoneInput($event)" formControlName="telephone" label="Telephone" type="tel"></ion-input>
               </ion-item>
               <div class="validator m-b-20" *ngIf="formData.get('telephone')?.invalid && formData.get('telephone')?.touched">
@@ -166,7 +166,7 @@
                 <span *ngIf="formData.get('telephone')?.errors?.['pattern']">Некоректний формат номера</span>
               </div>
       
-              <ion-item class="m-b-20">
+              <ion-item  [class.invalid]="formData.get('email')?.invalid && formData.get('email')?.touched" class="m-b-20">
                 <ion-input formControlName="email" label="Email" type="email"></ion-input>
               </ion-item>
     
@@ -174,7 +174,7 @@
                 <span *ngIf="formData.get('email')?.errors?.['email']">Некоректний формат email</span>
               </div>
       
-              <ion-item class="m-b-20">
+              <ion-item [class.invalid]="formData.get('adress')?.invalid && formData.get('adress')?.touched" class="m-b-20">
                 <ion-input formControlName="adress" label="Adress"></ion-input>
               </ion-item>
               <div class="validator m-b-20" *ngIf="formData.get('adress')?.invalid && formData.get('adress')?.touched">
