@@ -10,6 +10,7 @@ import { MenuController } from "@ionic/angular";
 import { Router } from "@angular/router";
 import { MenuService } from "@services/general/menu.service";
 import { AuthService } from "@core/auth-service/services/auth.service";
+import type { OverlayEventDetail } from '@ionic/core';
 
 @Component({
   selector: "app-nav-menu",
@@ -41,12 +42,35 @@ export class NavMenuComponent implements OnChanges {
     }
   }
   
-  
-
   logout() {
     this.authService.logOut();
     this.router.navigate([""]);
     console.log("logout");
+  }
+
+  
+  public alertButtons = [
+    {
+      text: 'Cancel',
+      role: 'cancel',
+      handler: () => {
+        console.log('Alert canceled');
+      },
+    },
+    {
+      text: 'OK',
+      role: 'confirm',
+      handler: () => {
+        console.log('Alert confirmed');
+      },
+    },
+  ];
+
+  setResult(event: CustomEvent<OverlayEventDetail>) {
+    if (event.detail.role === 'confirm') {
+      this.logout();
+    }
+    console.log(`Dismissed with role: ${event.detail.role}`);
   }
 
   ngOnInit() {

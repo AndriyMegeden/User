@@ -39,7 +39,14 @@
         <div class="m-b-10"><span class="user-info">Buttons</span></div>
         <div class="buttons d-flex flex-d-col ">
           <ion-button class="general m-b-20" [routerLink]="['/user-edit', user.id]">edit</ion-button>
-          <ion-button class="general " (click)="remove(user.id)">Delete</ion-button>
+          <ion-button id="user-alert" class="general" (click)="openAlert(user.id)">Delete</ion-button> 
+          <ion-alert
+          [isOpen]="isAlertOpen"
+          trigger="user-alert"
+          header="Do you really want to delete?"
+          [buttons]="alertButtons"
+          (didDismiss)="setResult($event)"
+          ></ion-alert>
         </div>
       </div>
     </div>

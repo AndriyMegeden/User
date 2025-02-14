@@ -19,6 +19,12 @@
     </ion-accordion>
   </ion-accordion-group>
   <ion-item slot="header" color="darc">
-    <ion-button (click)="logout()">Logout</ion-button>
+    <ion-button id="present-alert">Logout</ion-button>
+    <ion-alert
+      trigger="present-alert"
+      header="Do you really want to log out?"
+      [buttons]="alertButtons"
+      (didDismiss)="setResult($event)"
+    ></ion-alert>
   </ion-item>
 </div>
