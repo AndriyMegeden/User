@@ -23,7 +23,6 @@ export class EditUserComponent implements OnInit, OnDestroy {
   public session: SessionInterface;
   public sSub: Subscription;
   public timer: any = null;
-  public time: string = "00:00:00:00"; // Стартовий час
   public submited: boolean = false;
   public passwordShow: boolean = false;
   constructor(
@@ -239,61 +238,6 @@ export class EditUserComponent implements OnInit, OnDestroy {
       this.submited = false;
     });
   }
-
-
-  // запустити таймер
-  startTimer() {
-    if (this.timer) {
-      return;
-    }
-
-    let seconds = 0;
-    let minutes = 0;
-    let hours = 0;
-    let days = 0;
-
-    // Запуск інтервалу, що буде оновлювати час кожну секунду
-    this.timer = setInterval(() => {
-      seconds++;
-
-      if (seconds === 60) {
-        seconds = 0;
-        minutes++;
-
-        if (minutes === 60) {
-          minutes = 0;
-          hours++;
-
-          if (hours === 24) {
-            hours = 0;
-            days++;
-          }
-        }
-      }
-
-      // Форматуємо час у вигляді 00:00:00
-      this.time = `${this.pad(days)}:${this.pad(hours)}:${this.pad(
-        minutes
-      )}:${this.pad(seconds)}`;
-    }, 1000);
-  }
-
-  // зупинити таймер
-  stopTimer() {
-    if (this.timer) {
-      clearInterval(this.timer); // Зупинка таймера
-      this.timer = null; // Очистка змінної таймера
-      this.time = "00:00:00:00"; // Обнулити відображуваний час
-      console.log("Таймер зупинено");
-    }
-  }
-    // Функція для додавання нуля перед одиничними цифрами
-    private pad(number: number): string {
-      return number < 10 ? "0" + number : number.toString();
-    }
-  
-
-
 
   ngOnDestroy(): void {
     if (this.sSub) {

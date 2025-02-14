@@ -48,3 +48,13 @@ ion-header{
 app-root{
   width: 100%;
 }
+
+.success-toast {
+  --background: var(--dark-green) !important;
+  --color: white !important;
+}
+
+.error-toast {
+  --background: var(--dark-red) !important; 
+  --color: white !important;
+}

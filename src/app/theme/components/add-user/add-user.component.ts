@@ -7,6 +7,7 @@ import {
   Tariff,
   UserData,
 } from "@interfaces/user.interface";
+import { ToastController } from "@ionic/angular";
 import { UserService } from "@services/general/user.service";
 
 @Component({
@@ -23,7 +24,7 @@ export class AddUserComponent implements OnInit {
   public timer: any = null;
   public userId: string | null = null;
   public isDataInLocalStorage: boolean = false;
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private toastController: ToastController) {}
 
   ngOnInit() {
     // форма створення абонента
@@ -146,7 +147,7 @@ export class AddUserComponent implements OnInit {
     this.isDataInLocalStorage = true;
     localStorage.setItem("isDataInLocalStorage", JSON.stringify(true));
     localStorage.setItem("userData", JSON.stringify(data)); // Зберігаємо всі дані
-    alert('Дані збережено');
+    this.presentToast('Дані збережено', 'top');
   }
 
   submitLogin() {
@@ -160,7 +161,7 @@ export class AddUserComponent implements OnInit {
     };
 
     localStorage.setItem("userLogin", JSON.stringify(loginData)); // Зберігаємо логін у LocalStorage
-    alert('Дані збережено');
+    this.presentToast('Дані збережено', 'top');
   }
 
   submitSession() {
@@ -178,7 +179,7 @@ export class AddUserComponent implements OnInit {
       ipType: this.formInternetSession.value.ipType,
     };
     localStorage.setItem("sessionData", JSON.stringify(SessionData)); // Зберігаємо дані сесії
-    alert('Дані збережено');
+    this.presentToast('Дані збережено', 'top');
   }
 
 
@@ -201,7 +202,7 @@ export class AddUserComponent implements OnInit {
     this.userService.getByPhone(userData.telephone).subscribe(
       (existingUser) => {
         if (existingUser) {
-          console.log("Користувач вже існує:", existingUser);
+          this.presentToast("Користувач вже існує", 'top');
           return;
         }
   
@@ -210,13 +211,14 @@ export class AddUserComponent implements OnInit {
           (newUser) => {
             if (!newUser || !newUser.id) {
               console.error("Помилка: ID користувача не отримано!");
-              alert("Помилка при створенні користувача!");
+              this.presentToast('Помилка при створенні користувача', 'top');
               return;
             }
   
             this.userId = newUser.id;
             localStorage.setItem("userId", this.userId);
-            alert("Користувача створено");
+            this.presentToast('Користувача Створено', 'top');
+            
   
             // Якщо є логін, створюємо логін
             if (loginData) {
@@ -282,4 +284,22 @@ export class AddUserComponent implements OnInit {
       this.formInternetSession.patchValue(sessionData);
     }
   }
+
+
+  async presentToast(message: string, position: 'top' | 'middle' | 'bottom') {
+    const color = (message === 'Користувача Створено' || message === 'Дані збережено') ? 'success-toast' : 'error-toast';
+    
+    console.log("Toast message:", message);
+    console.log("Assigned color class:", color);
+
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000,
+      position: position,
+      cssClass: color,
+    });
+
+    await toast.present();
+}
+
 }
