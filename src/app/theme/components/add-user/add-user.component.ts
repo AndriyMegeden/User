@@ -24,12 +24,26 @@ export class AddUserComponent implements OnInit {
   public timer: any = null;
   public userId: string | null = null;
   public isDataInLocalStorage: boolean = false;
+  public activeCount: number = 0;
+  public passiveCount: number = 0;
   constructor(
     private userService: UserService,
-    private toastController: ToastController
-  ) {}
+    private toastController: ToastController,
+
+  ) {
+    this.loadCounts(); // Завантажуємо значення при старті компонента
+  }
+
+   // Функція завантаження даних з localStorage у змінні
+   loadCounts() {
+    this.activeCount = Number(localStorage.getItem("activeCount")) || 0;
+    this.passiveCount = Number(localStorage.getItem("passiveCount")) || 0;
+  }
+
+  
 
   ngOnInit() {
+    
     // форма створення абонента
     this.formData = new FormGroup({
       name: new FormControl(null, [
@@ -190,13 +204,13 @@ export class AddUserComponent implements OnInit {
     const storedUserData = localStorage.getItem("userData");
     const storedLoginData = localStorage.getItem("userLogin");
     const storedSessionData = localStorage.getItem("sessionData");
-
+  
     // Перевіряємо, чи є хоча б userData, бо без нього немає сенсу створювати логін або сесію
     if (!storedUserData) {
       console.warn("Немає основних даних користувача в LocalStorage.");
       return;
     }
-
+  
     const userData: UserData = JSON.parse(storedUserData);
     const loginData: LoginOffice | null = storedLoginData
       ? JSON.parse(storedLoginData)
@@ -204,14 +218,14 @@ export class AddUserComponent implements OnInit {
     const sessionData: SessionInterface | null = storedSessionData
       ? JSON.parse(storedSessionData)
       : null;
-
+  
     this.userService.getByPhone(userData.telephone).subscribe(
       (existingUser) => {
         if (existingUser) {
           this.presentToast("Користувач вже існує", "top");
           return;
         }
-
+  
         // Створюємо користувача
         this.userService.createUser(userData).subscribe(
           (newUser) => {
@@ -220,28 +234,39 @@ export class AddUserComponent implements OnInit {
               this.presentToast("Помилка при створенні користувача", "top");
               return;
             }
-
+  
             this.userId = newUser.id;
             localStorage.setItem("userId", this.userId);
             this.presentToast("Користувача Створено", "top");
-
+  
             // Якщо є логін, створюємо логін
             if (loginData) {
-              this.userService
-                .createLogin(this.userId, loginData)
-                .subscribe((error) => {
-                  console.error("Помилка при збереженні логіну:", error);
-                });
+              this.userService.createLogin(this.userId, loginData).subscribe({
+                error: (err) => console.error("Помилка при збереженні логіну:", err),
+              });
             }
-
-            // Якщо є сесія, створюємо сесію (незалежно від логіну)
+  
+            // Якщо є сесія, створюємо сесію
             if (sessionData) {
-              this.userService
-                .createSessionData(this.userId, sessionData)
-                .subscribe((error) => {
-                  console.error("Помилка при збереженні сесії:", error);
-                });
+              this.userService.createSessionData(this.userId, sessionData).subscribe({
+                error: (err) => console.error("Помилка при збереженні сесії:", err),
+              });
             }
+  
+            // Оновлюємо глобальний лічильник у Firebase
+            this.userService.getCounts().subscribe((counts) => {
+              if (!counts) {
+                counts = { activeCount: 0, passiveCount: 0 };
+              }
+  
+              if (sessionData?.isActive) {
+                counts.activeCount++;
+              } else {
+                counts.passiveCount++;
+              }
+  
+              this.userService.updateCounts(counts).subscribe();
+            });
           },
           (error) => {
             console.error("Помилка при створенні користувача:", error);
@@ -252,17 +277,18 @@ export class AddUserComponent implements OnInit {
         console.error("Помилка при перевірці існуючого користувача:", error);
       }
     );
-
+  
     // Видаляємо локальні дані
     localStorage.removeItem("userData");
     localStorage.removeItem("userLogin");
     localStorage.removeItem("sessionData");
-
+  
     // Скидаємо форми
     this.formData.reset();
     this.formLogin.reset();
     this.formInternetSession.reset();
   }
+  
 
   loadSavedData() {
     // Завантажуємо дані користувача, якщо є

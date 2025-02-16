@@ -1,6 +1,15 @@
 export interface Environment {
   apiKey: string;
-  production: boolean; 
+  production: boolean;
   fireBaseDBurl: string;
-  languages: {}
+  firebase: {
+    apiKey? : string;
+    authDomain?: string;
+    databaseURL?: string;
+    projectId?: string;
+    storageBucket?: string;
+    messagingSenderId?: string;
+    appId: string;
+  }
+  languages: {};
 }

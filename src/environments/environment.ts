@@ -4,15 +4,23 @@
 
 import { Environment } from "./interface";
 
-
 export const environment: Environment = {
   production: false,
   apiKey: "AIzaSyBR9yEA3m0HxZW0dkxGvrSaq6vNCpEhYmw",
   fireBaseDBurl: "https://diplom-2ca74-default-rtdb.firebaseio.com",
+  firebase: {
+    apiKey: "AIzaSyBR9yEA3m0HxZW0dkxGvrSaq6vNCpEhYmw",
+    authDomain: "diplom-2ca74.firebaseapp.com",
+    databaseURL: "https://diplom-2ca74-default-rtdb.firebaseio.com",
+    projectId: "diplom-2ca74",
+    storageBucket: "diplom-2ca74.firebasestorage.app",
+    messagingSenderId: "512916320545",
+    appId: "1:512916320545:web:a89c2a6f9894aa2e104e60",
+  },
   languages: {
-    available: ['en'],
-    default: 'en'
-  }
+    available: ["en"],
+    default: "en",
+  },
 };
 
 /*

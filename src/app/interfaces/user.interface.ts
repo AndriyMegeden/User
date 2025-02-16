@@ -56,3 +56,8 @@ export interface SessionInterface {
   ipType: IpType; 
   ipAddress?: string; 
 }
+export interface CountsActive {
+  id?: string;
+  activeCount: number;
+  passiveCount: number;
+}

@@ -1,0 +1,8 @@
+<div *ngIf="counts$ | async as counts; else loading">
+  <p style="color: black;">🔹 Активні: {{ counts.activeCount }}</p>
+  <p style="color: black;">🔸 Пасивні: {{ counts.passiveCount }}</p>
+</div>
+
+<ng-template #loading>
+  <p>Завантаження...</p>
+</ng-template>

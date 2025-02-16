@@ -10,6 +10,7 @@ import { SecurePage } from './secure.page';
 import { ComponentsModule } from '@theme/components/components.module';
 import { LayoutsModule } from '@theme/layouts/layouts.module';
 import { ParticalsModule } from '@theme/particals/particals.module';
+import { StatisticComponent } from '@theme/components/statistic/statistic.component';
 
 @NgModule({
   imports: [
@@ -21,6 +22,6 @@ import { ParticalsModule } from '@theme/particals/particals.module';
     LayoutsModule,
     ParticalsModule,
   ],
-  declarations: [SecurePage]
+  declarations: [SecurePage, StatisticComponent]
 })
 export class SecurePageModule {}
