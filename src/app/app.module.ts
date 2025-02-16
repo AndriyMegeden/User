@@ -13,6 +13,7 @@ import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common
 
 import { AuthGuard } from '@core/auth-service/guards/auth.guard';
 import { AuthInterceptor } from '@core/auth-service/services/auth.interceptor';
+import { ComponentsModule } from "./theme/components/components.module";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -27,19 +28,20 @@ const INTERCEPTOR_POVIDER: Provider = {
 @NgModule({
     declarations: [AppComponent],
     imports: [
-        BrowserModule,
-        IonicModule.forRoot(),
-        AppRoutingModule,
-        HttpClientModule,
-        TranslateModule.forRoot({
+    BrowserModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
         defaultLanguage: 'en', // Default language
         loader: {
             provide: TranslateLoader,
             useFactory: HttpLoaderFactory,
             deps: [HttpClient]
         }
-        })
-    ],
+    }),
+    ComponentsModule
+],
     providers: [
         INTERCEPTOR_POVIDER,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

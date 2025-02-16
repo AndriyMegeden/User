@@ -1,392 +1,212 @@
+
 <div class="content d-flex flex-d-col align-center">
-  <div class="wrapper w-100 d-flex justify-space-between m-b-40">
-    <div *ngIf="formInternetSession">
-      <div class="form f-1">
-        <form [formGroup]="formInternetSession" (ngSubmit)="submitSession()">
-          <div class="internet-connection">
-            <div class="title m-b-10 d-flex justify-center">
-              <span>Internet connection</span>
-            </div>
-            <div class="active d-flex justify-center m-b-20">
-              <ion-radio-group
-                formControlName="isActive"
-                class="d-flex align-center"
-                value="custom-checked"
-              >
-                <span class="radio-text m-r-10">Active</span>
-                <ion-radio
-                  class="m-r-20"
-                  [value]="true"
-                  aria-label="Custom checkbox"
-                ></ion-radio>
-                <ion-radio
-                  [value]="false"
-                  aria-label="Custom checkbox that is checked"
-                ></ion-radio>
-                <span class="radio-text m-l-10">Pause</span>
-              </ion-radio-group>
-            </div>
-            <!-- пара -->
-            <div class="connect-vlan d-flex couple justify-space-between">
-              <div class="balance m-b-20 m-r-20 d-flex flex-d-col w-50">
-                <ion-item class="m-b-20">
-                  <ion-input
-                    (keydown)="onPhoneInput($event)"
-                    formControlName="balance"
-                    label="Balance"
-                  ></ion-input>
-                </ion-item>
-                <div
-                  class="validator m-b-20"
-                  *ngIf="
-                    formInternetSession.get('balance')?.invalid &&
-                    formInternetSession.get('balance')?.touched
-                  "
-                >
-                  <span
-                    *ngIf="formInternetSession.get('balance')?.errors?.['required']"
-                    >Це поле обов'язкове</span
-                  >
-                  <span
-                    *ngIf="formInternetSession.get('balance')?.errors?.['min']"
-                    >Сума не повинна бути менше за 50</span
-                  >
-                </div>
-              </div>
-              <div class="credit m-b-20 d-flex flex-d-col w-50">
-                <ion-item class="m-b-20">
-                  <ion-input
-                    (keydown)="onPhoneInput($event)"
-                    formControlName="credit"
-                    label="Credit"
-                  ></ion-input>
-                </ion-item>
-                <div
-                  class="validator m-b-20"
-                  *ngIf="
-                    formInternetSession.get('credit')?.invalid &&
-                    formInternetSession.get('credit')?.touched
-                  "
-                >
-                  <span
-                    *ngIf="formInternetSession.get('credit')?.errors?.['required']"
-                    >Це поле обов'язкове</span
-                  >
-                  <span
-                    *ngIf="formInternetSession.get('credit')?.errors?.['min']"
-                    >Сума не повинна бути менше за 50</span
-                  >
-                </div>
-              </div>
-            </div>
+  <div class="wrapper w-100 d-flex justify-space-between m-b-40 m-t-30">
+    <div class="form d-flex align-end f-1">
+      <img src="assets/icons/general/internet.svg" alt="">
+      <form [formGroup]="formInternetSession" (ngSubmit)="submitSession()">
+        <div class="internet-connection">
+          <div class="title m-b-10 d-flex justify-center">
+            <span>Internet connection</span>
+          </div>
+          <div class="active d-flex justify-center m-b-20">
+            <ion-radio-group formControlName="isActive" class="d-flex align-center" value="custom-checked">
+              <span class="radio-text m-r-10">Active</span>
+              <ion-radio class="m-r-20" [value]="true" aria-label="Custom checkbox"></ion-radio>
+              <ion-radio
+              [value]="false"
+                aria-label="Custom checkbox that is checked"
+              ></ion-radio>
+              <span class="radio-text m-l-10">Pause</span>
+            </ion-radio-group>
+          </div>
 
-            <div class="session-active d-flex align-center p-lr-10 m-b-20" *ngIf="formInternetSession.valid && formInternetSession.get('isActive')?.value">
-              <span>Session Active ✅</span>
+          <div class="connect-vlan d-flex couple justify-space-between">
+            <div class="balance m-b-20 m-r-20 d-flex flex-d-col w-50">
+              <ion-item [class.invalid]="formInternetSession.get('balance')?.invalid && formInternetSession.get('balance')?.touched" class="m-b-20">
+                <ion-input (keydown)="onPhoneInput($event)" formControlName="balance" label="Balance"></ion-input>
+              </ion-item>
+              <div class="validator m-b-20"  *ngIf="formInternetSession.get('balance')?.invalid && formInternetSession.get('balance')?.touched">
+                <span *ngIf="formInternetSession.get('balance')?.errors?.['required']">Це поле обов'язкове</span>
+                <span *ngIf="formInternetSession.get('balance')?.errors?.['min']">Сума не повинна бути менше за 50</span>
+              </div>
             </div>
-            <div class="session-active pause d-flex align-center p-lr-10 m-b-20" *ngIf="formInternetSession.valid && !formInternetSession.get('isActive')?.value">
-              <span>The session is stopped ❌</span>
+            <div class="credit m-b-20 d-flex flex-d-col w-50">
+              <ion-item [class.invalid]="formInternetSession.get('credit')?.invalid && formInternetSession.get('credit')?.touched" class="m-b-20">
+                <ion-input (keydown)="onPhoneInput($event)" formControlName="credit" label="Credit"></ion-input>
+              </ion-item>
+              <div class="validator m-b-20" *ngIf="formInternetSession.get('credit')?.invalid && formInternetSession.get('credit')?.touched">
+                <span *ngIf="formInternetSession.get('credit')?.errors?.['required']">Це поле обов'язкове</span>
+                <span *ngIf="formInternetSession.get('credit')?.errors?.['min']">Сума не повинна бути менше за 50</span>
+              </div>
             </div>
           </div>
-          <div class="options">
-            <div class="title m-b-10 d-flex justify-center">
-              <span>Connection options</span>
-            </div>
-            <div class="select d-flex justify-space-between m-b-10">
-              <div class="tariff">
-                <ion-list>
-                  <ion-item>
-                    <ion-select
-                      formControlName="tariff"
-                      labelPlacement="stacked"
-                      label="Tariff"
-                      value="Platinum"
+        </div>
+        <div class="options">
+          <div class="title m-b-10 d-flex justify-center">
+            <span>Connection options</span>
+          </div>
+          <div class="select d-flex justify-space-between m-b-10">
+            <div class="tariff">
+              <ion-list>
+                <ion-item>
+                  <ion-select
+                  formControlName="tariff"
+                    labelPlacement="stacked"
+                    label="Tariff"
+                    value="Platinum"
+                  >
+                    <ion-select-option value="Platinum"
+                      >Platinum 800mb 300грн</ion-select-option
                     >
-                      <ion-select-option value="Platinum"
-                        >Platinum 800mb 300грн</ion-select-option
-                      >
-                      <ion-select-option value="Gold"
-                        >Gold 500mb 230грн</ion-select-option
-                      >
-                      <ion-select-option value="Premium"
-                        >Premium 300mb 180грн</ion-select-option
-                      >
-                    </ion-select>
-                  </ion-item>
-                </ion-list>
-              </div>
-              <div class="ip">
-                <ion-list>
-                  <ion-item>
-                    <ion-select
-                      labelPlacement="stacked"
-                      label="IP"
-                      value="Dynamic"
-                      formControlName="ipType"
+                    <ion-select-option value="Gold"
+                      >Gold 500mb 230грн</ion-select-option
                     >
-                      <ion-select-option value="Dynamic"
-                        >Dynamic</ion-select-option
-                      >
-                      <ion-select-option value="Static"
-                        >Static</ion-select-option
-                      >
-                    </ion-select>
-                  </ion-item>
-                </ion-list>
-              </div>
+                    <ion-select-option value="Premium"
+                      >Premium 300mb 180грн</ion-select-option
+                    >
+                  </ion-select>
+                </ion-item>
+              </ion-list>
             </div>
-            <ion-item class="m-b-20">
-              <ion-input
-                formControlName="macAdress"
-                label="Mac Adress"
-              ></ion-input>
+            <div class="ip"  >
+              <ion-list>
+                <ion-item>
+                  <ion-select labelPlacement="stacked" label="IP" value="Dynamic" formControlName="ipType">
+                    <ion-select-option value="Dynamic">Dynamic</ion-select-option>
+                    <ion-select-option value="Static">Static</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-list>
+            </div>
+          </div>
+          <ion-item [class.invalid]="formInternetSession.get('macAdress')?.invalid && formInternetSession.get('macAdress')?.touched" class="m-b-20">
+            <ion-input formControlName="macAdress" label="Mac Adress"></ion-input>
+          </ion-item>
+          <div class="validator m-b-20" *ngIf="formInternetSession.get('macAdress')?.invalid && formInternetSession.get('macAdress')?.touched">
+            <span *ngIf="formInternetSession.get('macAdress')?.errors?.['required']">Це поле обов'язкове</span>
+            <span *ngIf="formInternetSession.get('macAdress')?.errors?.['pattern']">Правильний формат XX:XX:XX:XX:XX:XX</span>
+          </div>
+          <div class="connect-vlan d-flex">
+            <ion-item [class.invalid]="formInternetSession.get('vlan')?.invalid && formInternetSession.get('vlan')?.touched" class="m-b-20 m-r-20">
+              <ion-input maxlength="4"  (keydown)="onPhoneInput($event)" formControlName="vlan" label="Vlan"></ion-input>
             </ion-item>
-            <div
-              class="validator m-b-20"
-              *ngIf="
-                formInternetSession.get('macAdress')?.invalid &&
-                formInternetSession.get('macAdress')?.touched
-              "
-            >
-              <span
-                *ngIf="formInternetSession.get('macAdress')?.errors?.['required']"
-                >Це поле обов'язкове</span
-              >
-              <span
-                *ngIf="formInternetSession.get('macAdress')?.errors?.['pattern']"
-                >Правильний формат XX:XX:XX:XX:XX:XX</span
-              >
-            </div>
-            <div class="connect-vlan d-flex">
-              <ion-item class="m-b-20 m-r-20">
-                <ion-input
-                  maxlength="4"
-                  (keydown)="onPhoneInput($event)"
-                  formControlName="vlan"
-                  label="Vlan"
-                ></ion-input>
-              </ion-item>
-              <ion-item class="m-b-20">
-                <ion-input
-                  formControlName="port"
-                  maxlength="3"
-                  (keydown)="onPhoneInput($event)"
-                  label="Port"
-                ></ion-input>
-              </ion-item>
-            </div>
-            <ion-button
-              type="submit"
-              [disabled]="formInternetSession.invalid"
-              class="general"
-              >Save</ion-button
-            >
+            <ion-item [class.invalid]="formInternetSession.get('port')?.invalid && formInternetSession.get('port')?.touched" class="m-b-20">
+              <ion-input formControlName="port" maxlength="3"  (keydown)="onPhoneInput($event)" label="Port"></ion-input>
+            </ion-item>
           </div>
-        </form>
-      </div>
+          <ion-button type="submit" [disabled]="formInternetSession.invalid" class="general">Save</ion-button>
+        </div>
+      </form>
     </div>
-
-    <div *ngIf="formLogin">
-      <div class="form f-2 h-auto">
+     
+  
+    <div class="submit-btn-con d-flex flex-d-col justify-space-between align-center">
+      <div class="form d-flex align-end f-2">
+        <img src="assets/icons/general/login.svg" alt="">
         <form [formGroup]="formLogin" (ngSubmit)="submitLogin()">
           <div class="login-container m-b-20">
             <div class="title m-b-10 d-flex justify-center">
               <span>Login Form</span>
             </div>
             <ion-list class="p-0">
-              <ion-item class="m-b-20">
+              <ion-item [class.invalid]="formLogin.get('login')?.invalid && formLogin.get('login')?.touched" class="m-b-20">
                 <ion-input formControlName="login" label="Login"></ion-input>
               </ion-item>
-              <div
-                class="validator m-b-20"
-                *ngIf="
-                  formLogin.get('login')?.invalid &&
-                  formLogin.get('login')?.touched
-                "
-              >
-                <span *ngIf="formLogin.get('login')?.errors?.['required']"
-                  >Це поле обов'язкове</span
-                >
-                <span *ngIf="formLogin.get('login')?.errors?.['minlength']"
-                  >Мінімальна кількість символів 3</span
-                >
+              <div class="validator m-b-20" *ngIf="formLogin.get('login')?.invalid && formLogin.get('login')?.touched">
+                <span *ngIf="formLogin.get('login')?.errors?.['required']">Це поле обов'язкове</span>
+                <span *ngIf="formLogin.get('login')?.errors?.['minlength']">Мінімальна кількість символів 3</span>
               </div>
-              <ion-item class="m-b-20">
-                <ion-input
-                  formControlName="password"
-                  label="Password"
-                  [type]="passwordShow ? 'text' : 'password'"
-                ></ion-input>
+              <ion-item [class.invalid]="formLogin.get('password')?.invalid && formLogin.get('password')?.touched" class="m-b-20">
+                <ion-input formControlName="password" label="Password" [type]="passwordShow ? 'text' : 'password'"></ion-input>
                 <ion-icon
-                  class="p-r-16"
-                  (click)="passwordShow = !passwordShow"
-                  [src]="
-                    passwordShow
-                      ? '/assets/icons/general/eye.svg'
-                      : '/assets/icons/general/eye-closed.svg'
-                  "
-                ></ion-icon>
+                class="p-r-16"
+                (click)="passwordShow = !passwordShow"
+                [src]="passwordShow ? '/assets/icons/general/eye.svg' : '/assets/icons/general/eye-closed.svg'"
+              ></ion-icon>
               </ion-item>
-              <div
-                class="validator m-b-20"
-                *ngIf="
-                  formLogin.get('password')?.invalid &&
-                  formLogin.get('password')?.touched
-                "
-              >
-                <span *ngIf="formLogin.get('password')?.errors?.['required']"
-                  >Це поле обов'язкове</span
-                >
-                <span *ngIf="formLogin.get('password')?.errors?.['minlength']"
-                  >Мінімальна кількість символів 3</span
-                >
+              <div class="validator m-b-20" *ngIf="formLogin.get('password')?.invalid && formLogin.get('password')?.touched">
+                <span *ngIf="formLogin.get('password')?.errors?.['required']">Це поле обов'язкове</span>
+                <span *ngIf="formLogin.get('password')?.errors?.['minlength']">Мінімальна кількість символів 3</span>
               </div>
             </ion-list>
-            <ion-button
-              class="general"
-              type="submit"
-              [disabled]="formLogin.invalid"
-              >Save</ion-button
-            >
+            <ion-button class="general" type="submit" [disabled]="formLogin.invalid">Save</ion-button>
           </div>
         </form>
       </div>
     </div>
-
-    <div *ngIf="formData">
-      <div class="form f-3">
+  
+     
+      <div class="form d-flex align-end f-3">
+        <img src="assets/icons/general/user-data.svg" alt="">
         <form [formGroup]="formData" (ngSubmit)="submitData()">
-          <div class="title m-b-10 d-flex justify-center">
-            <span>User data</span>
-          </div>
+          <div class="title m-b-10 d-flex justify-center"><span>User data</span></div>
           <ion-list>
             <div class="user-data">
-              <!-- пара -->
+
               <div class="about d-flex justify-space-between couple">
                 <div class="input-name m-b-20 m-r-20 d-flex flex-d-col w-50">
-                  <ion-item>
+                  <ion-item [class.invalid]="formData.get('name')?.invalid && formData.get('name')?.touched">
                     <ion-input formControlName="name" label="Name"></ion-input>
                   </ion-item>
-                  <div
-                    class="validator m-t-20"
-                    *ngIf="
-                      formData.get('name')?.invalid &&
-                      formData.get('name')?.touched
-                    "
-                  >
-                    <span *ngIf="formData.get('name')?.errors?.['required']"
-                      >Це поле обов'язкове</span
-                    >
-                    <span *ngIf="formData.get('name')?.errors?.['minlength']"
-                      >Мінімальна кількість символів 3</span
-                    >
+                  <div class="validator m-t-20" *ngIf="formData.get('name')?.invalid && formData.get('name')?.touched">
+                    <span *ngIf="formData.get('name')?.errors?.['required']">Це поле обов'язкове</span>
+                    <span *ngIf="formData.get('name')?.errors?.['minlength']">Мінімальна кількість символів 3</span>
                   </div>
                 </div>
                 <div class="input-surname m-b-20 w-50">
-                  <ion-item>
-                    <ion-input
-                      formControlName="surname"
-                      label="Surname"
-                    ></ion-input>
+                  <ion-item [class.invalid]="formData.get('surname')?.invalid && formData.get('surname')?.touched">
+                    <ion-input formControlName="surname" label="Surname"></ion-input>
                   </ion-item>
-                  <div
-                    class="validator m-t-20"
-                    *ngIf="
-                      formData.get('surname')?.invalid &&
-                      formData.get('surname')?.touched
-                    "
-                  >
-                    <span *ngIf="formData.get('surname')?.errors?.['required']"
-                      >Це поле обов'язкове</span
-                    >
-                    <span *ngIf="formData.get('surname')?.errors?.['minlength']"
-                      >Мінімальна кількість символів 3</span
-                    >
+                  <div class="validator  m-t-20" *ngIf="formData.get('surname')?.invalid && formData.get('surname')?.touched">
+                    <span *ngIf="formData.get('surname')?.errors?.['required']">Це поле обов'язкове</span>
+                    <span *ngIf="formData.get('surname')?.errors?.['minlength']">Мінімальна кількість символів 3</span>
                   </div>
                 </div>
+               
               </div>
-              <ion-item class="m-b-20">
-                <ion-input
-                  id="telephone"
-                  (keydown)="onPhoneInput($event)"
-                  formControlName="telephone"
-                  label="Telephone"
-                  type="tel"
-                ></ion-input>
+              <ion-item [class.invalid]="formData.get('telephone')?.invalid && formData.get('telephone')?.touched" class="m-b-20">
+                <ion-input  id="telephone" (keydown)="onPhoneInput($event)" formControlName="telephone" label="Telephone" type="tel"></ion-input>
               </ion-item>
-              <div
-                class="validator m-b-20"
-                *ngIf="
-                  formData.get('telephone')?.invalid &&
-                  formData.get('telephone')?.touched
-                "
-              >
-                <span *ngIf="formData.get('telephone')?.errors?.['required']"
-                  >Номер телефону обов'язковий</span
-                >
-                <span *ngIf="formData.get('telephone')?.errors?.['pattern']"
-                  >Некоректний формат номера</span
-                >
+              <div class="validator m-b-20" *ngIf="formData.get('telephone')?.invalid && formData.get('telephone')?.touched">
+                <span *ngIf="formData.get('telephone')?.errors?.['required']">Номер телефону обов'язковий</span>
+                <span *ngIf="formData.get('telephone')?.errors?.['pattern']">Некоректний формат номера</span>
               </div>
-
-              <ion-item class="m-b-20">
-                <ion-input
-                  formControlName="email"
-                  label="Email"
-                  type="email"
-                ></ion-input>
+      
+              <ion-item  [class.invalid]="formData.get('email')?.invalid && formData.get('email')?.touched" class="m-b-20">
+                <ion-input formControlName="email" label="Email" type="email"></ion-input>
               </ion-item>
-
-              <div
-                class="validator m-b-20"
-                *ngIf="
-                  formData.get('email')?.invalid &&
-                  formData.get('email')?.touched
-                "
-              >
-                <span *ngIf="formData.get('email')?.errors?.['email']"
-                  >Некоректний формат email</span
-                >
+    
+              <div class="validator m-b-20" *ngIf="formData.get('email')?.invalid && formData.get('email')?.touched">
+                <span *ngIf="formData.get('email')?.errors?.['email']">Некоректний формат email</span>
               </div>
-
-              <ion-item class="m-b-20">
+      
+              <ion-item [class.invalid]="formData.get('adress')?.invalid && formData.get('adress')?.touched" class="m-b-20">
                 <ion-input formControlName="adress" label="Adress"></ion-input>
               </ion-item>
-              <div
-                class="validator m-b-20"
-                *ngIf="
-                  formData.get('adress')?.invalid &&
-                  formData.get('adress')?.touched
-                "
-              >
-                <span *ngIf="formData.get('adress')?.errors?.['required']"
-                  >Адреса обов'язкова</span
-                >
-                <span *ngIf="formData.get('adress')?.errors?.['minlength']"
-                  >Мінімальна кількість символів 3</span
-                >
+              <div class="validator m-b-20" *ngIf="formData.get('adress')?.invalid && formData.get('adress')?.touched">
+                <span *ngIf="formData.get('adress')?.errors?.['required']">Адреса обов'язкова</span>
+                <span *ngIf="formData.get('adress')?.errors?.['minlength']">Мінімальна кількість символів 3</span>
               </div>
+      
             </div>
             <div class="notes m-b-20">
               <div class="notes-title m-b-10">
                 <span> Notes </span>
               </div>
-              <ion-textarea
+                <ion-textarea
                 class="p-lr-8"
                 formControlName="textarea"
                 labelPlacement="stacked"
                 [autoGrow]="true"
               >
               </ion-textarea>
+    
             </div>
-            <ion-button
-              class="general"
-              type="submit"
-              [disabled]="formData.invalid"
-              >Save</ion-button
-            >
+            <ion-button class="general" type="submit" [disabled]="formData.invalid">Save</ion-button>
           </ion-list>
         </form>
-      </div>
+      </div>    
     </div>
-  </div>
+  
+ 
 </div>

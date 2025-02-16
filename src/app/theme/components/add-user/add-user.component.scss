@@ -1,9 +1,6 @@
 
-  
-  ion-item{
-    &.invalid {
-        border: 1px solid red !important;
-    }
-   
+ion-item {
+  &.invalid {
+    border: 1px solid red !important;
   }
-  
+}
