@@ -1,0 +1,26 @@
+.custom-legend {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    color: var(--black);
+    max-width: 200px;
+  }
+  
+  .legend-item {
+    color: var(--black);
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  
+  .legend-color-box {
+    color: var(--black);
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+    border-radius: 3px;
+  }
+  

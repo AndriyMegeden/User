@@ -11,7 +11,7 @@ import { AuthService } from "@core/auth-service/services/auth.service";
 import { AddUserComponent } from "./add-user/add-user.component";
 import { SearchPipe } from "@theme/search.pipe";
 import { EditUserComponent } from "./edit-user/edit-user.component";
-import { StatisticComponent } from "./statistic/statistic.component";
+
 
 @NgModule({
   imports: [
@@ -22,6 +22,7 @@ import { StatisticComponent } from "./statistic/statistic.component";
     ReactiveFormsModule,
     NgxTranslateModule,
     HttpClientModule,
+    
     
   ],
   declarations: [AuthComponent, TableComponent, AddUserComponent, EditUserComponent, SearchPipe],

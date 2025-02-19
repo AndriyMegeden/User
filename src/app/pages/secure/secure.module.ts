@@ -11,6 +11,7 @@ import { ComponentsModule } from '@theme/components/components.module';
 import { LayoutsModule } from '@theme/layouts/layouts.module';
 import { ParticalsModule } from '@theme/particals/particals.module';
 import { StatisticComponent } from '@theme/components/statistic/statistic.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { StatisticComponent } from '@theme/components/statistic/statistic.compon
     ComponentsModule,
     LayoutsModule,
     ParticalsModule,
+    NgxChartsModule
   ],
   declarations: [SecurePage, StatisticComponent]
 })
