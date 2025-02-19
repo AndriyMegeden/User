@@ -160,7 +160,7 @@ export class AddUserComponent implements OnInit {
     this.isDataInLocalStorage = true;
     localStorage.setItem("isDataInLocalStorage", JSON.stringify(true));
     localStorage.setItem("userData", JSON.stringify(data)); // Зберігаємо всі дані
-    this.presentToast("Дані збережено", "top");
+    this.presentToast("Data saved", "top");
   }
 
   submitLogin() {
@@ -174,7 +174,7 @@ export class AddUserComponent implements OnInit {
     };
 
     localStorage.setItem("userLogin", JSON.stringify(loginData)); // Зберігаємо логін у LocalStorage
-    this.presentToast("Дані збережено", "top");
+    this.presentToast("Data saved", "top");
   }
 
   submitSession() {
@@ -192,7 +192,7 @@ export class AddUserComponent implements OnInit {
       ipType: this.formInternetSession.value.ipType,
     };
     localStorage.setItem("sessionData", JSON.stringify(SessionData)); // Зберігаємо дані сесії
-    this.presentToast("Дані збережено", "top");
+    this.presentToast("Data saved", "top");
   }
 
   saveAll() {
@@ -203,7 +203,7 @@ export class AddUserComponent implements OnInit {
 
     // Перевіряємо, чи є хоча б userData, бо без нього немає сенсу створювати логін або сесію
     if (!storedUserData) {
-      console.warn("Немає основних даних користувача в LocalStorage.");
+      console.warn("There is no basic user data in the LocalStorage.");
       return;
     }
 
@@ -218,7 +218,7 @@ export class AddUserComponent implements OnInit {
     this.userService.getByPhone(userData.telephone).subscribe(
       (existingUser) => {
         if (existingUser) {
-          this.presentToast("Користувач вже існує", "top");
+          this.presentToast("User already exists", "top");
           return;
         }
 
@@ -226,20 +226,20 @@ export class AddUserComponent implements OnInit {
         this.userService.createUser(userData).subscribe(
           (newUser) => {
             if (!newUser || !newUser.id) {
-              console.error("Помилка: ID користувача не отримано!");
-              this.presentToast("Помилка при створенні користувача", "top");
+              console.error("Error: User ID not received!");
+              this.presentToast("Error creating user", "top");
               return;
             }
 
             this.userId = newUser.id;
             localStorage.setItem("userId", this.userId);
-            this.presentToast("Користувача Створено", "top");
+            this.presentToast("User Created", "top");
 
             // Якщо є логін, створюємо логін
             if (loginData) {
               this.userService.createLogin(this.userId, loginData).subscribe({
                 error: (err) =>
-                  console.error("Помилка при збереженні логіну:", err),
+                  console.error("Error saving login:", err),
               });
             }
 
@@ -249,7 +249,7 @@ export class AddUserComponent implements OnInit {
                 .createSessionData(this.userId, sessionData)
                 .subscribe({
                   error: (err) =>
-                    console.error("Помилка при збереженні сесії:", err),
+                    console.error("Error saving session:", err),
                 });
 
               // Оновлюємо глобальний лічильник у Firebase
@@ -269,12 +269,12 @@ export class AddUserComponent implements OnInit {
             }
           },
           (error) => {
-            console.error("Помилка при створенні користувача:", error);
+            console.error("Error creating user:", error);
           }
         );
       },
       (error) => {
-        console.error("Помилка при перевірці існуючого користувача:", error);
+        console.error("Error checking for existing user:", error);
       }
     );
 
@@ -314,7 +314,7 @@ export class AddUserComponent implements OnInit {
 
   async presentToast(message: string, position: "top" | "middle" | "bottom") {
     const color =
-      message === "Користувача Створено" || message === "Дані збережено"
+      message === "Користувача Створено" || message === "Data saved"
         ? "success-toast"
         : "error-toast";
 

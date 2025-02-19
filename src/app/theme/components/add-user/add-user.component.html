@@ -1,9 +1,9 @@
 
 <div class="content d-flex flex-d-col align-center">
   <div class="wrapper w-100 d-flex justify-space-between m-b-40 m-t-30">
-    <div class="form d-flex align-end f-1">
+    <div class="form d-flex  f-1">
       <img src="assets/icons/general/internet.svg" alt="">
-      <form [formGroup]="formInternetSession" (ngSubmit)="submitSession()">
+      <form class="m-t-65" [formGroup]="formInternetSession" (ngSubmit)="submitSession()">
         <div class="internet-connection">
           <div class="title m-b-10 d-flex justify-center">
             <span>Internet connection</span>
@@ -101,9 +101,9 @@
      
   
     <div class="submit-btn-con d-flex flex-d-col justify-space-between align-center">
-      <div class="form d-flex align-end f-2">
+      <div class="form d-flex f-2">
         <img src="assets/icons/general/login.svg" alt="">
-        <form [formGroup]="formLogin" (ngSubmit)="submitLogin()">
+        <form class="m-t-65" [formGroup]="formLogin" (ngSubmit)="submitLogin()">
           <div class="login-container m-b-20">
             <div class="title m-b-10 d-flex justify-center">
               <span>Login Form</span>
@@ -137,9 +137,9 @@
     </div>
   
      
-      <div class="form d-flex align-end f-3">
+      <div class="form d-flex f-3">
         <img src="assets/icons/general/user-data.svg" alt="">
-        <form [formGroup]="formData" (ngSubmit)="submitData()">
+        <form class="m-t-65" [formGroup]="formData" (ngSubmit)="submitData()">
           <div class="title m-b-10 d-flex justify-center"><span>User data</span></div>
           <ion-list>
             <div class="user-data">

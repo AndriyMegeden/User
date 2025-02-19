@@ -201,7 +201,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
   
     // Перевіряємо, чи минуло 15 секунд з останнього виклику
     if (now - this.lastSubmitTime < 15000) {
-      this.presentToast("Будь ласка, зачекайте 15 секунд перед наступним оновленням", "top");
+      this.presentToast("Please wait 15 seconds before the next update", "top");
       return;
     }
 
@@ -224,7 +224,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
       .subscribe(() => {
         this.submited = false;
       });
-      this.presentToast("Дані Оновлено", "top");
+      this.presentToast("Data Updated", "top");
       this.lastSubmitTime = Date.now();
   }
 
@@ -232,7 +232,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
     const now = Date.now();
     // Перевіряємо, чи минуло 15 секунд з останнього виклику
     if (now - this.lastSubmitTime < 15000) {
-      this.presentToast("Будь ласка, зачекайте 15 секунд перед наступним оновленням", "top");
+      this.presentToast("Please wait 15 seconds before the next update", "top");
       return;
     }
 
@@ -254,14 +254,14 @@ export class EditUserComponent implements OnInit, OnDestroy {
     this.sSub = this.userService.updateUser(updatedUserLogin).subscribe(() => {
       this.submited = false;
     });
-    this.presentToast("Дані Оновлено", "top");
+    this.presentToast("Data Updated", "top");
     this.lastSubmitTime = Date.now();
   }
 
   submitSession() {
     const now = Date.now();
     if (now - this.lastSubmitTime < 15000) {
-      this.presentToast("Будь ласка, зачекайте 15 секунд перед наступним оновленням", "top");
+      this.presentToast("Please wait 15 seconds before the next update", "top");
       return;
     }
   
@@ -291,7 +291,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
   
     this.sSub = this.userService.updateUser(updateUserSession).subscribe(() => {
       this.submited = false;
-      this.presentToast("Дані Оновлено", "top");
+      this.presentToast("Data Updated", "top");
   
       // Отримуємо лічильники
       this.userService.getCounts().subscribe((counts) => {
@@ -325,7 +325,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
   
   async presentToast(message: string, position: "top" | "middle" | "bottom") {
     const color =
-      message === "Користувача Створено" || message === "Дані Оновлено"
+      message === "Користувача Створено" || message === "Data Updated"
         ? "success-toast"
         : "error-toast";
 
