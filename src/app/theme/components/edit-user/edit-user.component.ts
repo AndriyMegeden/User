@@ -239,20 +239,25 @@ export class EditUserComponent implements OnInit, OnDestroy {
 
   submitSession() {
     const now = Date.now();
-    // Перевіряємо, чи минуло 15 секунд з останнього виклику
     if (now - this.lastSubmitTime < 15000) {
       this.presentToast("Будь ласка, зачекайте 15 секунд перед наступним оновленням", "top");
       return;
     }
+  
     if (this.formInternetSession.invalid) {
       return;
     }
+  
     this.submited = true;
-
+  
+    // Отримуємо попередній стан isActive (або null, якщо не було)
+    const previousIsActive = this.user.session ? this.user.session.isActive : null;
+    const newIsActive = this.formInternetSession.value.isActive;
+  
     const updateUserSession = {
       ...this.user,
       session: {
-        isActive: this.formInternetSession.value.isActive,
+        isActive: newIsActive,
         balance: this.formInternetSession.value.balance,
         credit: this.formInternetSession.value.credit,
         macAdress: this.formInternetSession.value.macAdress,
@@ -260,16 +265,43 @@ export class EditUserComponent implements OnInit, OnDestroy {
         port: this.formInternetSession.value.port,
         tariff: this.formInternetSession.value.tariff,
         ipType: this.formInternetSession.value.ipType,
-        // ipAddress: this.formInternetSession.value.ipAddress,
       },
     };
+  
     this.sSub = this.userService.updateUser(updateUserSession).subscribe(() => {
       this.submited = false;
+      this.presentToast("Дані Оновлено", "top");
+  
+      // Отримуємо лічильники
+      this.userService.getCounts().subscribe((counts) => {
+        if (previousIsActive === null) {
+          // Якщо попереднє значення було null, просто додаємо у відповідний лічильник
+          if (newIsActive) {
+            counts.activeCount++;
+          } else {
+            counts.passiveCount++;
+          }
+        } else if (previousIsActive !== newIsActive) {
+          // Якщо isActive змінився з true на false або навпаки
+          if (newIsActive) {
+            counts.activeCount++;
+            counts.passiveCount = Math.max(0, counts.passiveCount - 1);
+          } else {
+            counts.passiveCount++;
+            counts.activeCount = Math.max(0, counts.activeCount - 1);
+          }
+        }
+  
+        this.userService.updateCounts(counts).subscribe(() => {
+          console.log("Лічильники успішно оновлено.");
+        });
+      });
     });
-    this.presentToast("Дані Оновлено", "top");
+  
     this.lastSubmitTime = Date.now();
   }
-
+  
+  
   async presentToast(message: string, position: "top" | "middle" | "bottom") {
     const color =
       message === "Користувача Створено" || message === "Дані Оновлено"
