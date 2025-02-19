@@ -18,6 +18,7 @@ export class UserEditPage implements OnInit {
 
   goBack() {
     this.navCtrl.back(); // Повертає на попередню сторінку
+    console.log('back')
   }
 
   menuChange(event){
