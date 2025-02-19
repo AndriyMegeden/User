@@ -58,7 +58,7 @@ export class TableComponent implements OnInit, OnDestroy {
       this.users = this.users.filter((user) => user.id !== id);
     });
 
-    const sessionUser = this.users.find((user) => user.id);
+    const sessionUser = this.users.find((user) => user.id === id);
     const isActive = sessionUser.session.isActive;
     this.userService.getCounts().subscribe((counts) => {
       if (isActive) {
