@@ -16,9 +16,9 @@ import { Subscription, switchMap } from "rxjs";
   styleUrls: ["./edit-user.component.scss"],
 })
 export class EditUserComponent implements OnInit, OnDestroy {
-  public formData: FormGroup;
-  public formLogin: FormGroup;
-  public formInternetSession: FormGroup;
+  public formData!: FormGroup;
+  public formLogin!: FormGroup;
+  public formInternetSession!: FormGroup;
   public user: UserData;
   public login: LoginOffice;
   public session: SessionInterface;
@@ -41,6 +41,13 @@ export class EditUserComponent implements OnInit, OnDestroy {
         )
       )
       .subscribe((user: UserData) => {
+
+        if (!user) {
+          console.log('дані користувача відсутні');
+          return;
+        }
+
+
         this.user = user;
         this.formData = new FormGroup({
           name: new FormControl(user.name, [
@@ -82,6 +89,11 @@ export class EditUserComponent implements OnInit, OnDestroy {
         )
       )
       .subscribe((login: LoginOffice) => {
+
+        if (!login) {
+          console.log('дані логіна відсутні');
+          return;
+        }
         this.login = login;
         this.formLogin = new FormGroup({
           login: new FormControl(login.login, [
@@ -97,7 +109,10 @@ export class EditUserComponent implements OnInit, OnDestroy {
 
     // форма сесії
     this.formInternetSession = new FormGroup({
-      isActive: new FormControl(""),
+      isActive: new FormControl(false, [
+        Validators.required,
+      ]),
+      
       balance: new FormControl("", [
         Validators.required,
         Validators.minLength(2),
@@ -133,6 +148,12 @@ export class EditUserComponent implements OnInit, OnDestroy {
         )
       )
       .subscribe((session: SessionInterface) => {
+        if (!session) {
+          console.log('дані сесії відсутні');
+          return;
+        }
+
+
         this.session = session;
         this.formInternetSession = new FormGroup({
           isActive: new FormControl(session.isActive),
