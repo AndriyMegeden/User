@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule, provideHttpClient } from '@angular/common/http';
 
 import { AuthGuard } from '@core/auth-service/guards/auth.guard';
 import { AuthInterceptor } from '@core/auth-service/services/auth.interceptor';
@@ -31,7 +31,6 @@ const INTERCEPTOR_POVIDER: Provider = {
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    HttpClientModule,
     TranslateModule.forRoot({
         defaultLanguage: 'en', // Default language
         loader: {
@@ -43,6 +42,7 @@ const INTERCEPTOR_POVIDER: Provider = {
     ComponentsModule
 ],
     providers: [
+        provideHttpClient(),
         INTERCEPTOR_POVIDER,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
         AuthGuard
