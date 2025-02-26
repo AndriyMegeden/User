@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Router, RoutesRecognized } from '@angular/router';
 import { FacebookLogin } from '@capacitor-community/facebook-login';
 import { SplashScreen } from '@capacitor/splash-screen'
-import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import { LocalStorageService } from '@core/auth-service/services/localstorage.service';
 import { environment } from '@environments/environment';
 import { LoadingController, Platform } from '@ionic/angular';
