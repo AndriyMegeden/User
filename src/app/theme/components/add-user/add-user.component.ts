@@ -314,7 +314,7 @@ export class AddUserComponent implements OnInit {
 
   async presentToast(message: string, position: "top" | "middle" | "bottom") {
     const color =
-      message === "Користувача Створено" || message === "Data saved"
+      message === "User Created" || message === "Data saved"
         ? "success-toast"
         : "error-toast";
 

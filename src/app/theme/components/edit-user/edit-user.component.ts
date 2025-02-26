@@ -325,7 +325,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
   
   async presentToast(message: string, position: "top" | "middle" | "bottom") {
     const color =
-      message === "Користувача Створено" || message === "Data Updated"
+      message === "User Created" || message === "Data Updated"
         ? "success-toast"
         : "error-toast";
 

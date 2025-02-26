@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
-import { isPlatform } from "@ionic/angular";
+import { isPlatform, ToastController } from "@ionic/angular";
 import { AuthService } from "@core/auth-service/services/auth.service";
 import { HttpErrorService } from "@core/auth-service/services/http-error.service";
 import { loginSetting } from "@static/auth.settings";
@@ -52,7 +52,8 @@ export class AuthComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private httpErrorService: HttpErrorService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private toastController: ToastController
   ) {}
 
   ngOnInit() {
@@ -83,13 +84,13 @@ export class AuthComponent implements OnInit {
         field.validators
       );
     });
-  
+
     this.form = new FormGroup(formControlsConfig);
   }
-  
 
   login(route: string) {
     if (this.form.invalid) {
+      console.log("The user does not exist");
       return;
     }
     this.submitted = true;
@@ -98,23 +99,47 @@ export class AuthComponent implements OnInit {
       email: this.form.value.email,
       password: this.form.value.password,
     };
-    this.authService.login(user).subscribe((response: any) => {
-      const token = localStorage.getItem("fb-token-exp");
-      // Продовжуємо токен на 24 години
-      if (this.form.value.remember && token) {
-        const tokenExpiryDate = new Date(token);
-        tokenExpiryDate.setHours(tokenExpiryDate.getHours() + 24);
-        const newFormattedDate = tokenExpiryDate.toString();
-        localStorage.setItem("fb-token-exp", newFormattedDate);
-        console.log(newFormattedDate);
-      }
+    this.authService.login(user).subscribe({
+      next: (response: any) => {
+        const token = localStorage.getItem("fb-token-exp");
+        // Продовжуємо токен на 24 години
+        if (this.form.value.remember && token) {
+          const tokenExpiryDate = new Date(token);
+          tokenExpiryDate.setHours(tokenExpiryDate.getHours() + 24);
+          const newFormattedDate = tokenExpiryDate.toString();
+          localStorage.setItem("fb-token-exp", newFormattedDate);
+          console.log(newFormattedDate);
+        }
 
-      console.log(response);
-      const userEmail = response.email;
-      this.authService.fetchUsername(userEmail);
-      this.form.reset();
-      this.submitted = false;
-      this.router.navigateByUrl(route);
+        console.log(response);
+        const userEmail = response.email;
+        this.authService.fetchUsername(userEmail);
+        this.form.reset();
+        this.submitted = false;
+        this.router.navigateByUrl(route);
+      },
+      error: (err) => {
+        // ✅ Обробка помилки
+        if (err.status === 400) {
+          console.error("User does not exist or invalid credentials");
+          this.form.markAsPristine(); // ❗ Позначаємо як незмінювану (не змінену)
+          this.form.markAsUntouched(); // ❗ Позначаємо всі поля як не торкані
+          this.form.updateValueAndValidity();
+          this.submitted = false;
+          this.presentToast(
+            "User does not exist or invalid credentials",
+            "top"
+          );
+        } else {
+          console.error("An error occurred:", err);
+        }
+      },
+      complete: () => {
+        // (Необов'язково) ✅ Виконується після завершення
+        console.log("Successful");
+        this.submitted = true;
+        this.presentToast("Successful", "top");
+      },
     });
   }
 
@@ -136,5 +161,21 @@ export class AuthComponent implements OnInit {
     } else {
       false;
     }
+  }
+
+  async presentToast(message: string, position: "top" | "middle" | "bottom") {
+    const color = message === "Successful" ? "success-toast" : "error-toast";
+
+    console.log("Toast message:", message);
+    console.log("Assigned color class:", color);
+
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000,
+      position: position,
+      cssClass: color,
+    });
+
+    await toast.present();
   }
 }
