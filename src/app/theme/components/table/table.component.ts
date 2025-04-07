@@ -2,10 +2,10 @@ import { Component, NgModule, OnDestroy, OnInit } from "@angular/core";
 import { SessionInterface, UserData } from "@interfaces/user.interface";
 import { OverlayEventDetail } from "@ionic/core";
 import { UserService } from "@services/general/user.service";
-import { Observable, Subscription } from "rxjs";
+import { map, Observable, Subscription, take } from "rxjs";
 import { selectError, selectUsers } from "src/app/ngrx/selectors/user.selectors";
 import { Store } from '@ngrx/store';
-import { loadUsers } from "src/app/ngrx/actions/user.actions";
+import { deleteUser, loadUsers } from "src/app/ngrx/actions/user.actions";
 import { UserState } from "src/app/ngrx/reducers/user.reducer";
 @Component({
   selector: "app-table",
@@ -70,8 +70,9 @@ export class TableComponent implements OnInit, OnDestroy {
   //     this.store.dispatch(deleteUser({ userId: id }));
   //     // Оновлення лічильників
   //     this.users$.pipe(
+  //       take(1),
   //       map(users => users.find((user) => user.id === id)),
-  //       take(1)
+        
   //     ).subscribe((sessionUser) => {
   //       if (sessionUser) {
   //         const isActive = sessionUser.session.isActive;
