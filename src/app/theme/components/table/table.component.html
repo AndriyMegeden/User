@@ -6,11 +6,13 @@
   ></ion-input>
 </div>
 
-<div *ngIf="users.length; else loading">
+<!-- <div *ngIf="users.length; else loading"> -->
+  <!-- якшо через ngrx то users$ | async -->
   <section
     class="table-container d-flex flex-d-col align-end table m-b-20"
-    *ngFor="let user of users | searchUser : searchStr; let idx = index"
-  >
+                        
+    *ngFor="let user of users | searchUser : searchStr; let idx = index" 
+  > 
     <div class="key-value d-flex justify-space-between w-100 p-15">
       <div class="column d-flex flex-d-col justify-space-between t-center">
         <div><span class="user-info">iD</span></div>
@@ -50,9 +52,13 @@
         </div>
       </div>
     </div>
-  </section>
-</div>
 
-<ng-template #loading>
+    <div *ngIf="(error$ | async) as error">
+      <p *ngIf="error">Помилка завантаження: {{ error }}</p>
+    </div>
+  </section>
+<!-- </div> -->
+
+<!-- <ng-template #loading>
   <p class="text-center w-100 d-flex justify-center">loading...</p>
-</ng-template>
+</ng-template> -->
