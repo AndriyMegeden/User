@@ -24,6 +24,7 @@ export interface UserData {
   email?: string;
   adress: string;
   textarea?: string;
+  login?: LoginOffice;   
   session?: SessionInterface;
 }
 

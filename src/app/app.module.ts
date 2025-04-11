@@ -22,7 +22,8 @@ import { StoreModule } from "@ngrx/store";
 import { userReducer } from "./ngrx/reducers/user.reducer";
 import { EffectsModule } from "@ngrx/effects";
 import { UserEffects } from "./ngrx/effects/user.effects";
-
+import { StoreDevtoolsModule } from '@ngrx/store-devtools'; // Імпортуємо StoreDevtoolsModule
+import { environment } from "@environments/environment";
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -41,6 +42,10 @@ const INTERCEPTOR_POVIDER: Provider = {
     AppRoutingModule,
     StoreModule.forRoot({ userState: userReducer }),
     EffectsModule.forRoot([UserEffects]),
+     StoreDevtoolsModule.instrument({
+      maxAge: 25, // зберігає останні 25 змін стану
+      logOnly: environment.production ? false : true, // вимикає в продакшн середовищі
+    }),
     HttpClientModule,
     TranslateModule.forRoot({
       defaultLanguage: "en", // Default language

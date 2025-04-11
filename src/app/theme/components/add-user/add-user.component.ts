@@ -8,7 +8,9 @@ import {
   UserData,
 } from "@interfaces/user.interface";
 import { ToastController } from "@ionic/angular";
+import { Store } from "@ngrx/store";
 import { UserService } from "@services/general/user.service";
+import { createLogin, createSession, createUser } from "src/app/ngrx/actions/user.actions";
 
 @Component({
   selector: "app-add-user",
@@ -28,6 +30,7 @@ export class AddUserComponent implements OnInit {
   public passiveCount: number = 0;
   constructor(
     private userService: UserService,
+    private store: Store,
     private toastController: ToastController
   ) {
     this.loadCounts(); // Завантажуємо значення при старті компонента
@@ -221,8 +224,6 @@ export class AddUserComponent implements OnInit {
           this.presentToast("User already exists", "top");
           return;
         }
-
-        // Створюємо користувача
         this.userService.createUser(userData).subscribe(
           (newUser) => {
             if (!newUser || !newUser.id) {
@@ -237,14 +238,12 @@ export class AddUserComponent implements OnInit {
 
             // Якщо є логін, створюємо логін
             if (loginData) {
-              this.userService.createLogin(this.userId, loginData).subscribe({
-                error: (err) =>
-                  console.error("Error saving login:", err),
-              });
+              this.store.dispatch(createLogin({ userId: this.userId, login: loginData }));
             }
 
             // Якщо є сесія, створюємо сесію
             if (sessionData) {
+              this.store.dispatch(createSession({ userId: this.userId, session: sessionData }));
               this.userService
                 .createSessionData(this.userId, sessionData)
                 .subscribe({

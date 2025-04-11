@@ -1,4 +1,4 @@
-import { UserData } from "@interfaces/user.interface";
+import { LoginOffice, SessionInterface, UserData } from "@interfaces/user.interface";
 import { createReducer, on } from "@ngrx/store";
 import {
   createUser,
@@ -12,6 +12,8 @@ import { error } from "console";
 export interface UserState {
   users: UserData[];
   error: string | null;
+    login?: LoginOffice;   
+    session?: SessionInterface;
 }
 
 export const initialState: UserState = {
