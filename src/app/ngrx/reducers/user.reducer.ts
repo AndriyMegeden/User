@@ -11,6 +11,7 @@ import { error } from "console";
 
 export interface UserState {
   users: UserData[];
+  loading: boolean;
   error: string | null;
     login?: LoginOffice;   
     session?: SessionInterface;
@@ -18,6 +19,7 @@ export interface UserState {
 
 export const initialState: UserState = {
   users: [],
+  loading: false,
   error: null,
 };
 

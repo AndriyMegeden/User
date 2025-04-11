@@ -224,53 +224,9 @@ export class AddUserComponent implements OnInit {
           this.presentToast("User already exists", "top");
           return;
         }
-        this.userService.createUser(userData).subscribe(
-          (newUser) => {
-            if (!newUser || !newUser.id) {
-              console.error("Error: User ID not received!");
-              this.presentToast("Error creating user", "top");
-              return;
-            }
+          // диспатчим с ngrx
+        this.store.dispatch(createUser({ user: userData, login: loginData, session: sessionData }));
 
-            this.userId = newUser.id;
-            localStorage.setItem("userId", this.userId);
-            this.presentToast("User Created", "top");
-
-            // Якщо є логін, створюємо логін
-            if (loginData) {
-              this.store.dispatch(createLogin({ userId: this.userId, login: loginData }));
-            }
-
-            // Якщо є сесія, створюємо сесію
-            if (sessionData) {
-              this.store.dispatch(createSession({ userId: this.userId, session: sessionData }));
-              this.userService
-                .createSessionData(this.userId, sessionData)
-                .subscribe({
-                  error: (err) =>
-                    console.error("Error saving session:", err),
-                });
-
-              // Оновлюємо глобальний лічильник у Firebase
-              this.userService.getCounts().subscribe((counts) => {
-                if (!counts) {
-                  counts = { activeCount: 0, passiveCount: 0 };
-                }
-
-                if (sessionData?.isActive) {
-                  counts.activeCount++;
-                } else {
-                  counts.passiveCount++;
-                }
-
-                this.userService.updateCounts(counts).subscribe();
-              });
-            }
-          },
-          (error) => {
-            console.error("Error creating user:", error);
-          }
-        );
       },
       (error) => {
         console.error("Error checking for existing user:", error);

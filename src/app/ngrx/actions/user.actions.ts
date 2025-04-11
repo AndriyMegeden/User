@@ -1,8 +1,8 @@
-import { LoginOffice, SessionInterface, UserData } from '@interfaces/user.interface';
+import { CountsActive, LoginOffice, SessionInterface, UserData } from '@interfaces/user.interface';
 import { createAction, props } from '@ngrx/store';
 
 
-export const createUser = createAction ('[User] Create User', props<{ user: UserData  }>())
+export const createUser = createAction ('[User] Create User', props<{ user: UserData, login?: LoginOffice; session?: SessionInterface  }>())
 export const createUserSuccess = createAction ('[User] Create User Success', props<{ user: UserData }>())
 export const createUserFailure = createAction ('[User] Create Users Failure', props<{ error: string }>());
 
@@ -23,6 +23,10 @@ export const loadUsers = createAction('[User] Load Users');
 export const loadUserSuccess = createAction ('[User] Load Users Success', props<{ users: UserData[] }>());
 export const loadUserFailure = createAction ('[User] Load Users Failure', props<{ error: string }>());
 
+// Дії для оновлення лічильників
+export const updateCounts = createAction('[User] Update Counts', props<{ session: SessionInterface }>());
+export const updateCountsSuccess = createAction('[Counts] Update Counts Success');
+export const updateCountsFailure = createAction('[Counts] Update Counts Failure', props<{ error: string }>());
 
 
 
